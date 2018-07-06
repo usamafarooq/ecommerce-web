@@ -3,8 +3,10 @@ var http = require('http');
 var path = require('path');
 var bodyParser = require('body-parser');
 
+
+
 var app = express();
-app.engine('html', require('ejs').renderFile);
+// app.engine('html', require('ejs').renderFile);
 
 app.set('port', process.env.PORT || 4300);
 app.set('views', path.join(__dirname, 'views'));
@@ -16,12 +18,18 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+//app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
+//app.use(express.methodOverride());
 
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
-if ('development' == app.get('env')) {
-	app.use(express.errorHandler());
-}
+// if ('development' == app.get('env')) {
+// 	app.use(express.errorHandler());
+// }
+
+var user = require('./routes/user');
+var modules = require('./routes/modules');
+
 
 var dbConfig = require('./config/config.js');
 
@@ -57,6 +65,11 @@ app.get("/", function (req, res) {
 app.get("/admin", function (req, res) {
     res.render('admin/index', {title: 'Express'});
 });
+
+app.post('/login', user.login);
+
+app.get('/modules', modules.module);
+
 
 
 app.use(app.router);

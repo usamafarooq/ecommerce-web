@@ -9,6 +9,7 @@
     <meta name=description content="">
     <meta name=author content="">
     <title>Ecommerce Admin Panel</title>
+    <base href="/ecommerce-web/admin_panel/">
     <link rel="shortcut icon" href="assets/dist/img/ico/favicon.png" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <script>
@@ -32,7 +33,7 @@
                 <![endif]-->
 </head>
 
-<body>
+<body ng-controller="mainCtrl">
     <div id=wrapper class="wrapper animsition">
         <!-- Navigation -->
         <nav class="navbar navbar-fixed-top">
@@ -259,13 +260,13 @@
                             <li><a href="mailbox.html"><i class="ti-email"></i>&nbsp; My Messages</a></li>
                             <li><a href="lockscreen.html"><i class="ti-lock"></i>&nbsp; Lock Screen</a></li>
                             <li><a href="#"><i class="ti-settings"></i>&nbsp; Settings</a></li>
-                            <li><a href="login.html"><i class="ti-layout-sidebar-left"></i>&nbsp; Logout</a></li>
+                            <li><a href="javascript:;" ng-click="logout()"><i class="ti-layout-sidebar-left"></i>&nbsp; Logout</a></li>
                         </ul>
                         <!-- /.dropdown-user -->
                     </li>
                     <!-- /.Dropdown -->
                     <li class="log_out">
-                        <a href="login.html">
+                        <a href="javascript:;" ng-click="logout()">
                                 <i class="material-icons">power_settings_new</i>
                             </a>
                     </li>
@@ -277,7 +278,21 @@
         <!-- /.Navigation -->
         <div class="sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu"></ul>
+                <ul class="nav" id="side-menu">
+                    <li class="nav-heading "> <span>Main Navigation&nbsp;&nbsp;&nbsp;&nbsp;------</span></li>
+                    <!-- ng-class="{true: 'active', false: ''}[current == m.url]" -->
+                    <li ng-repeat="m in modules">
+                        <a href="{{m.url}}" class="material-ripple">
+                            <i class="material-icons">{{m.icon}}</i> 
+                            {{m.name}}
+                            <!-- <span class="fa arrow" ng-if="m.children"></span> -->
+                        </a>
+                        
+                        <!-- <ul class="nav nav-second-level" ng-if="m.children">
+                            <li ng-repeat="a in m.children"><a href="{{a.url}}">{{a.name}}</a></li>
+                        </ul> -->
+                    </li>
+                </ul>
                 
             </div>
             <!-- /.sidebar-collapse -->
@@ -289,10 +304,17 @@
             <div ng-view></div>
         </div>
     </div>
-    <script data-cfasync="false" src="http://cdn-cgi/scripts/f2bf09f8/cloudflare-static/email-decode.min.js"></script>
+    <!-- <script data-cfasync="false" src="http://cdn-cgi/scripts/f2bf09f8/cloudflare-static/email-decode.min.js"></script> -->
     <script src="assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
     <script src="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+
+
     <script src="assets/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="assets/plugins/lobipanel/lobipanel.min.js"></script>
     <script src="assets/plugins/animsition/js/animsition.min.js"></script>
@@ -314,9 +336,7 @@
     <script src="assets/dist/js/app.min.js"></script>
     <script src="assets/dist/js/page/dashboard.min.js"></script>
     <script src="assets/dist/js/jQuery.style.switcher.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
-    <script type="text/javascript" src="app/app.js"></script>
+    
 </body>
 
 
