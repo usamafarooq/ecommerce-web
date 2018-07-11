@@ -1,0 +1,63 @@
+<div class="content">
+					<!-- Content Header (Page header) -->
+					<div class="content-header">
+						<div class="header-icon">
+							<i class="pe-7s-box1"></i>
+						</div>
+						<div class="header-title">
+							<h1>View Users</h1>
+							<small> </small>
+							<ol class="breadcrumb">
+								<li><a href="home"><i class="pe-7s-home"></i> Home</a></li>
+
+								<li class="active">View Users</li>
+							</ol>
+						</div>
+					</div> <!-- /. Content Header (Page header) -->
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-bd">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<h4>View Users</h4>
+										<a href="user/create"><button class="btn btn-info pull-right">Add Users</button></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									
+									<div class="table-responsive">
+										<table id="dataTableExample2" class="table table-bordered table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Id</th>
+													<th>First Name</th>
+													<th>Last Name</th>
+													<th>Email</th>
+													<th>Username</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+										    <tbody>
+										    	
+												<tr ng-repeat="u  in users">
+													<td>{{u._id}}</td>
+													<td>{{u.first_name}}</td>
+													<td>{{u.last_name}}</td>
+													<td>{{u.email}}</td>
+													<td>{{u.username}}</td>
+													<td>
+														<a href="user/edit/{{u._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">mode_edit</i></button></a>
+		                                                <a href="" data-ng-click="deleteuser(u._id)"><button class="btn btn-danger btn-circle material-ripple"><i class="material-icons">delete_forever</i></button></a>
+	                                                </td>
+												</tr>
+											</tbody>
+										</table>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="height: 450px;"></div>
+				</div> 

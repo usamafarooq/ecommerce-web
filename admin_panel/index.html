@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang=en ng-app="ecommerceApp">
+
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=description content="">
+    <meta name=author content="">
+    <title>Ecommerce Admin Panel</title>
+    <base href="/ecommerce-web/admin_panel/">
+    <link rel="shortcut icon" href="assets/dist/img/ico/favicon.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Alegreya+Sans:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i', 'Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i', 'Open Sans']
+            }
+        });
+    </script>
+    <link href="assets/dist/css/base.css" rel=stylesheet type="text/css" />
+    <link href="assets/plugins/toastr/toastr.min.css" rel=stylesheet type="text/css" />
+    <link href="assets/plugins/emojionearea/emojionearea.min.css" rel=stylesheet type="text/css" />
+    <link href="assets/plugins/monthly/monthly.min.css" rel=stylesheet type="text/css" />
+    <link href="assets/plugins/amcharts/export.css" rel=stylesheet type="text/css" />
+    <link href="assets/dist/css/component_ui.min.css" rel=stylesheet type="text/css" />
+    <link id=defaultTheme href="assets/dist/css/skins/skin-dark-1.min.css" rel=stylesheet type="text/css" />
+     <link href="assets/plugins/datatables/dataTables.min.css" rel="stylesheet" type="text/css"/>
+     <link href="assets/dist/button/css/bootstrap-toggle.css" rel="stylesheet">
+    <link href="assets/dist/css/custom.css" rel=stylesheet type="text/css" />
+    <!--[if lt IE 9]>
+                    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+                <![endif]-->
+</head>
+
+<body ng-controller="mainCtrl">
+    <div id=wrapper class="wrapper animsition">
+        <!-- Navigation -->
+        <nav class="navbar navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="material-icons">apps</i>
+                    </button>
+                <a class="navbar-brand" href="index.html">
+                        <img class="main-logo" src="assets/dist/img/light-logo.png" id="bg" alt="">
+                        <!--<span>AdminPage</span>-->
+                    </a>
+            </div>
+            <div class="nav-container">
+                <!-- /.navbar-header -->
+                <ul class="nav navbar-nav hidden-xs">
+                    <li><a id="fullscreen" href="#"><i class="material-icons">fullscreen</i> </a></li>
+                    <!-- /.Fullscreen -->
+                    <li class="hidden-xs">
+                        <a class="search-trigger" href="#">
+                                <i class="material-icons">search</i>
+                            </a>
+                        <div class="fullscreen-search-overlay" id="search-overlay">
+                            <a href="#" class="fullscreen-close" id="fullscreen-close-button"><i class="ti-close"></i></a>
+                            <div id="fullscreen-search-wrapper">
+                                <form method="get" id="fullscreen-searchform">
+                                    <input type="text" value="" placeholder="Type keyword(s) here" id="fullscreen-search-input">
+                                    <i class="ti-search fullscreen-search-icon"><input value="" type="submit"></i>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- /.Full page search -->
+                    <!-- /.Sidebar menu toggle icon -->
+                    <!--Start dropdown menu-->
+                    
+                </ul>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="material-icons">chat</i>
+                                <span class="label label-danger">9</span>
+                            </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li class="rad-dropmenu-header"><a href="#">New Messages</a></li>
+                            <li>
+                                <a href="#" class="rad-content">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/dist/img/avatar.png" class="img-circle" alt=""></div>
+                                        <strong class="inbox-item-author">Naeem Khan</strong>
+                                        <span class="inbox-item-date">-13:40 PM</span>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <span class="profile-status available pull-right"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="rad-content">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/dist/img/avatar2.png" class="img-circle" alt=""></div>
+                                        <strong class="inbox-item-author">Sala Uddin</strong>
+                                        <span class="inbox-item-date">-13:40 PM</span>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <span class="profile-status away pull-right"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="rad-content">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/dist/img/avatar3.png" class="img-circle" alt=""></div>
+                                        <strong class="inbox-item-author">Mozammel</strong>
+                                        <span class="inbox-item-date">-13:40 PM</span>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <span class="profile-status busy pull-right"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="rad-content">
+                                    <div class="inbox-item">
+                                        <div class="inbox-item-img"><img src="assets/dist/img/avatar4.png" class="img-circle" alt=""></div>
+                                        <strong class="inbox-item-author">Tanzil Ahmed</strong>
+                                        <span class="inbox-item-date">-13:40 PM</span>
+                                        <p class="inbox-item-text">Hey! there I'm available...</p>
+                                        <span class="profile-status offline pull-right"></span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="rad-dropmenu-footer"><a href="#">View All messages</a></li>
+                        </ul>
+                        <!-- /.Dropdown-messages -->
+                    </li>
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <!--<i class="ti-flag-alt"></i>-->
+                            <i class="material-icons">flag</i>
+                            <span class="label label-success">4</span>
+                            <!--<i class="ti-angle-down"></i>-->
+                        </a>
+                        <ul class="dropdown-menu dropdown-tasks">
+                            <!--<li class="ui_popover_tooltip"></li>-->
+                            <li class="rad-dropmenu-header"><a href="#">Your Task</a></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p><strong>Task 1</strong>
+                                            <span class="pull-right sm-text">40% Complete</span></p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                <span class="sr-only">40% Complete (success)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p><strong>Task 2</strong>
+                                            <span class="pull-right sm-text">20% Complete</span></p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                                <span class="sr-only">20% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p><strong>Task 3</strong>
+                                            <span class="pull-right sm-text">60% Complete</span></p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                                <span class="sr-only">60% Complete (warning)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p><strong>Task 4</strong>
+                                            <span class="pull-right sm-text">80% Complete</span></p>
+                                        <div class="progress progress-striped active">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                                <span class="sr-only">80% Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="rad-dropmenu-footer"><a href="#">See All Tasks</a></li>
+                        </ul>
+                        <!-- /.Dropdown-tasks -->
+                    </li>
+                    <!-- /.Dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="material-icons">add_alert</i>
+                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                                <!--<i class="ti-announcement"></i>-->
+                                <!--<i class="ti-angle-down"></i>-->
+                            </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <!--<li class="ui_popover_tooltip"></li>-->
+                            <li class="rad-dropmenu-header"><a href="#">Your Notifications</a></li>
+                            <li>
+                                <a class="rad-content" href="#">
+                                    <div class="pull-left"><i class="fa fa-html5 fa-2x color-red"></i>
+                                    </div>
+                                    <div class="rad-notification-body">
+                                        <div class="lg-text">Introduction to fetch()</div>
+                                        <div class="sm-text">The fetch API</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="rad-content" href="#">
+                                    <div class="pull-left"><i class="fa fa-bitbucket fa-2x color-violet"></i>
+                                    </div>
+                                    <div class="rad-notification-body">
+                                        <div class="lg-text">Check your BitBucket</div>
+                                        <div class="sm-text">Last Chance</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="rad-content" href="#">
+                                    <div class="pull-left"><i class="fa fa-google fa-2x color-info"></i>
+                                    </div>
+                                    <div class="rad-notification-body">
+                                        <div class="lg-text">Google Account</div>
+                                        <div class="sm-text"><span class="__cf_email__" data-cfemail="e18499808c918d84a1868c80888dcf828e8c">[email&#160;protected]</span></div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="rad-content" href="#">
+                                    <div class="pull-left"><i class="fa fa-amazon fa-2x color-green"></i>
+                                    </div>
+                                    <div class="rad-notification-body">
+                                        <div class="lg-text">Amazon Simple Notification ...</div>
+                                        <div class="sm-text">Lorem Ipsum is simply dummy text...</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="rad-dropmenu-footer"><a href="#">See all notifications</a></li>
+                        </ul>
+                        <!-- /.dropdown-alerts -->
+                        <!-- /.dropdown-alerts -->
+                    </li>
+                    <!-- /.Dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="material-icons">person_add</i>
+                            </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="profile.html"><i class="ti-user"></i>&nbsp; Profile</a></li>
+                            <li><a href="mailbox.html"><i class="ti-email"></i>&nbsp; My Messages</a></li>
+                            <li><a href="lockscreen.html"><i class="ti-lock"></i>&nbsp; Lock Screen</a></li>
+                            <li><a href="#"><i class="ti-settings"></i>&nbsp; Settings</a></li>
+                            <li><a href="javascript:;" ng-click="logout()"><i class="ti-layout-sidebar-left"></i>&nbsp; Logout</a></li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.Dropdown -->
+                    <li class="log_out">
+                        <a href="javascript:;" ng-click="logout()">
+                                <i class="material-icons">power_settings_new</i>
+                            </a>
+                    </li>
+                    <!-- /.Log out -->
+                </ul>
+                <!-- /.navbar-top-links -->
+            </div>
+        </nav>
+        <!-- /.Navigation -->
+        <div class="sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-heading "> <span>Main Navigation&nbsp;&nbsp;&nbsp;&nbsp;------</span></li>
+                    <!-- ng-class="{true: 'active', false: ''}[current == m.url]" -->
+                    <li ng-repeat="m in modules">
+                        <a href="{{m.url}}" class="material-ripple">
+                            <i class="material-icons">{{m.icon}}</i> 
+                            {{m.name}}
+                            <span class="fa arrow" ng-if="m.children != null"></span>
+                        </a>
+                        
+                        <ul class="nav nav-second-level" ng-if="m.children != null">
+                            <li ng-repeat="a in m.children"><a href="{{a.url}}">{{a.name}}</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.Left Sidebar-->
+        
+        <div class=control-sidebar-bg></div>
+        <div id=page-wrapper>
+            <div ng-view></div>
+        </div>
+    </div>
+    <!-- <script data-cfasync="false" src="http://cdn-cgi/scripts/f2bf09f8/cloudflare-static/email-decode.min.js"></script> -->
+    <script src="assets/plugins/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+
+    <script src="assets/dist/button/js/bootstrap-toggle.js"></script>
+    <script src="assets/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="assets/plugins/lobipanel/lobipanel.min.js"></script>
+    <script src="assets/plugins/animsition/js/animsition.min.js"></script>
+    <script src="assets/plugins/fastclick/fastclick.min.js"></script>
+    <script src="assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="assets/plugins/toastr/toastr.min.js"></script>
+    <script src="assets/plugins/sparkline/sparkline.min.js"></script>
+    <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
+    <script src="assets/plugins/counterup/waypoints.js"></script>
+    <script src="assets/plugins/emojionearea/emojionearea.min.js"></script>
+    <script src="assets/plugins/monthly/monthly.min.js"></script>
+    <script src="assets/plugins/amcharts/amcharts.js"></script>
+    <script src="assets/plugins/amcharts/ammap.js"></script>
+    <script src="assets/plugins/amcharts/worldLow.js"></script>
+    <script src="assets/plugins/amcharts/serial.js"></script>
+    <script src="assets/plugins/amcharts/export.min.js"></script>
+    <script src="assets/plugins/amcharts/light.js"></script>
+    <script src="assets/plugins/amcharts/pie.js"></script>
+    <script src="assets/plugins/datatables/dataTables.min.js" type="text/javascript"></script>
+    <script src="assets/dist/js/app.min.js"></script>
+    <script src="assets/dist/js/page/dashboard.min.js"></script>
+    <script src="assets/dist/js/jQuery.style.switcher.min.js"></script>
+    
+</body>
+
+
+</html>
