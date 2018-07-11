@@ -26,6 +26,8 @@
     <link href="assets/plugins/amcharts/export.css" rel=stylesheet type="text/css" />
     <link href="assets/dist/css/component_ui.min.css" rel=stylesheet type="text/css" />
     <link id=defaultTheme href="assets/dist/css/skins/skin-dark-1.min.css" rel=stylesheet type="text/css" />
+     <link href="assets/plugins/datatables/dataTables.min.css" rel="stylesheet" type="text/css"/>
+     <link href="assets/dist/button/css/bootstrap-toggle.css" rel="stylesheet">
     <link href="assets/dist/css/custom.css" rel=stylesheet type="text/css" />
     <!--[if lt IE 9]>
                     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -285,12 +287,12 @@
                         <a href="{{m.url}}" class="material-ripple">
                             <i class="material-icons">{{m.icon}}</i> 
                             {{m.name}}
-                            <!-- <span class="fa arrow" ng-if="m.children"></span> -->
+                            <span class="fa arrow" ng-if="m.children != null"></span>
                         </a>
                         
-                        <!-- <ul class="nav nav-second-level" ng-if="m.children">
+                        <ul class="nav nav-second-level" ng-if="m.children != null">
                             <li ng-repeat="a in m.children"><a href="{{a.url}}">{{a.name}}</a></li>
-                        </ul> -->
+                        </ul>
                     </li>
                 </ul>
                 
@@ -314,7 +316,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
     <script type="text/javascript" src="app/app.js"></script>
 
-
+    <script src="assets/dist/button/js/bootstrap-toggle.js"></script>
     <script src="assets/plugins/metisMenu/metisMenu.min.js"></script>
     <script src="assets/plugins/lobipanel/lobipanel.min.js"></script>
     <script src="assets/plugins/animsition/js/animsition.min.js"></script>
@@ -333,6 +335,7 @@
     <script src="assets/plugins/amcharts/export.min.js"></script>
     <script src="assets/plugins/amcharts/light.js"></script>
     <script src="assets/plugins/amcharts/pie.js"></script>
+    <script src="assets/plugins/datatables/dataTables.min.js" type="text/javascript"></script>
     <script src="assets/dist/js/app.min.js"></script>
     <script src="assets/dist/js/page/dashboard.min.js"></script>
     <script src="assets/dist/js/jQuery.style.switcher.min.js"></script>

@@ -1,0 +1,115 @@
+<div class="content">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="header-icon">
+                <i class="pe-7s-note2"></i>
+            </div>
+            <div class="header-title">
+                <h1>Role</h1>
+                <small></small>
+                <ol class="breadcrumb">
+                    <li><a href="home"><i class="pe-7s-home"></i> Home</a></li>
+                    <li class="active">Role</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /. Content Header (Page header) -->
+
+        <form method="post" enctype="multipart/form-data" ng-submit="submitForm()">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-bd ">
+                        
+                        <div class="panel-body">
+
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Role</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" ng-model="form.role" value="" name="role" id="example-text-input" placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-text-input" class="col-sm-3 col-form-label"></label>
+                                <div class="col-sm-9">
+                                   <table class="table  ">
+                                                <thead>
+                                                    <tr>
+                                                        <th><center>View</center></th>
+                                                        <th><center>View All</center></th>
+                                                        <th><center>Edit</center></th>
+                                                        <th><center>Create</center></th>
+                                                        <th><center>Delete</center></th>
+                                                        <th><center>Disable</center></th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                       
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row" ng-repeat="m in module">
+                                <input type="hidden" name="id" class="module_id" value="{{m._id}}">
+                                <label for="example-text-input" class="col-sm-3 col-form-label" style="    margin-top: -11px;">{{m.name}}</label>
+                                <div class="col-sm-9" style="    margin-top: -29px;">
+                                    <table class="table  ">
+
+                                        <tbody class="professional_reference-append">   
+                                            <tr>
+                                                <td>
+                                                    <div class="col-sm-2">
+                                                        <input type="checkbox" class="view" data-toggle="toggle" ng-model="form.m._id[view]" name="{{m._id}}[view]" value="1" data-on="Yes" data-off="No">
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col-sm-2">
+                                                        <input type="checkbox" class="view_all" data-toggle="toggle" ng-model="form.m._id[view_all]" name="{{m._id}}[view_all]" value="1" data-on="Yes" data-off="No">
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col-sm-2">
+                                                        <input type="checkbox" class="edit" data-toggle="toggle" ng-model="form.m._id[edit]" name="{{m._id}}[edit]" value="1" data-on="Yes" data-off="No">
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col-sm-2">
+                                                        <input type="checkbox" class="created" data-toggle="toggle" ng-model="form.m._id[created]" name="{{m._id}}[created]" value="1" data-on="Yes" data-off="No">
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col-sm-2">
+                                                        <input type="checkbox" class="deleted" data-toggle="toggle" ng-model="form.m._id[deleted]" name="{{m._id}}[deleted]" value="1" data-on="Yes" data-off="No">
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="col-sm-2">
+                                                        <input type="checkbox" class="disable" data-toggle="toggle" ng-model="form.m._id[disable]" name="{{m._id}}[disable]" value="1" data-on="Yes" data-off="No">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div> 
+                            
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>

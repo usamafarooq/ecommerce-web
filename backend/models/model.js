@@ -35,12 +35,28 @@ var modules = mongoose.Schema({
     timestamps: true
 });
 
+
+var permission = mongoose.Schema({
+    role_id: String,
+    module_id: String,
+    view: String,
+    view_all: String,
+    created: String,
+    edit: String,
+    deleted: String,
+    disable: String,
+}, {
+    timestamps: true
+});
+
 var User = mongoose.model('User', User);
 var user_type = mongoose.model('user_type', user_type);
 var modules = mongoose.model('modules', modules);
+var permission = mongoose.model('permission', permission);
 module.exports = {
     User: User, 
     user_type:user_type, 
-    modules:modules
+    modules:modules, 
+    permission:permission
 }
 //module.exports = mongoose.model(User: User, user_type:user_type);

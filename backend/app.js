@@ -28,6 +28,7 @@ app.use(bodyParser.json())
 // }
 
 var user = require('./routes/user');
+var roles = require('./routes/role');
 var modules = require('./routes/modules');
 
 
@@ -68,7 +69,39 @@ app.get("/admin", function (req, res) {
 
 app.post('/login', user.login);
 
+app.post('/createuser', user.create);
+
+
+app.get('/users', user.users);
+
+app.get('/edituser/:id', user.edituser);
+
+app.get('/deleteuser/:id', user.deleteuser);
+
+app.post('/updateuser/:id', user.updateuser);
+
+app.get('/role', roles.role);
+
+app.post('/createrole', roles.create);
+
+app.get('/editrole/:id', roles.edit);
+
+app.get('/role_permission/:id', roles.permission);
+
+app.get('/deleterole/:id', roles.delete);
+
+app.get('/usermodules', modules.usermodule);
+
 app.get('/modules', modules.module);
+
+app.post('/createmodule', modules.create);
+
+app.get('/editmodule/:id', modules.edit);
+
+app.get('/deletemodule/:id', modules.delete);
+
+app.post('/updatemodule/:id', modules.update);
+
 
 
 
