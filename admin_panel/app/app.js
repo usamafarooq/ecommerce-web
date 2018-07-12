@@ -48,6 +48,18 @@ app.config(function($routeProvider, $locationProvider) {
         templateUrl : "templates/editrole.html",
         controller: 'editroleCtrl',
         cache: false
+    }).when("/category", {
+        templateUrl : "templates/category.html",
+        controller: 'categoryCtrl',
+        cache: false
+    }).when("/category/create", {
+        templateUrl : "templates/createcategory.html",
+        controller: 'createcategoryCtrl',
+        cache: false
+    }).when("/category/edit/:name", {
+        templateUrl : "templates/editcategory.html",
+        controller: 'editcategoryCtrl',
+        cache: false
     });
     //$urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
@@ -648,5 +660,124 @@ app.controller('editroleCtrl', function($scope,$http,$location,$routeParams) {
         })
         //console.log(form)
         
+    }
+});
+
+app.controller('categoryCtrl', function($scope,$http,$location,$route) {
+    $scope.category
+    $http({
+        method: 'GET',
+        url: api + "category",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.category = data.data
+        setTimeout(function(argument) {
+            $("#dataTableExample2").DataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    {extend: 'copy', className: 'btn-sm'},
+                    {extend: 'csv', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'excel', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'pdf', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'print', className: 'btn-sm'}
+                ],
+                "order": [[ 0, "desc" ]]
+            });
+        }, 300)
+    });
+    $scope.deletecategory = function(id) {
+        $http({
+            method: 'GET',
+            url: api + "deletecategory/"+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            $route.reload()
+        })
+    }
+});
+
+app.controller('createcategoryCtrl', function($scope,$http,$location) {
+    $scope.category
+    $http({
+        method: 'GET',
+        url: api + "category",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.category = data.data
+    })
+    $scope.submitForm = function() {
+        console.log($scope.form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "createcategory",
+            data: $scope.form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/category')
+        })
+    }
+});
+
+app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams) {
+    $scope.role
+    $scope.form
+    var currentId = $routeParams.name;
+    //console.log(currentId)
+    $scope.category
+    $http({
+        method: 'GET',
+        url: api + "category",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.category = data.data
+    })
+    $http({
+        method: 'GET',
+        url: api + "editcategory/"+currentId,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        // var form = data.data
+        // $scope.form.first_name = form.first_name
+        // $scope.form.last_name = form.last_name
+        // $scope.form.username = form.username
+        // $scope.form.email = form.email
+        // $scope.form.password = form.password
+        // $scope.form.role = form.role
+        $scope.form = data.data
+    })
+    $scope.submitForm = function() {
+        //console.log($scope.form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "updatecategory/"+currentId,
+            data: {
+                'name' : $scope.form.name,
+                'sort' : $scope.form.sort,
+                'url' : $scope.form.url,
+                'parent_id' : $scope.form.parent_id,
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/category')
+        })
     }
 });

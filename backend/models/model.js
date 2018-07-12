@@ -49,14 +49,25 @@ var permission = mongoose.Schema({
     timestamps: true
 });
 
+var category = mongoose.Schema({
+    name: String,
+    sort: String,
+    url: String,
+    parent_id: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
+}, {
+    timestamps: true
+});
+
 var User = mongoose.model('User', User);
 var user_type = mongoose.model('user_type', user_type);
 var modules = mongoose.model('modules', modules);
 var permission = mongoose.model('permission', permission);
+var category = mongoose.model('category', category);
 module.exports = {
     User: User, 
     user_type:user_type, 
     modules:modules, 
-    permission:permission
+    permission:permission, 
+    category:category
 }
 //module.exports = mongoose.model(User: User, user_type:user_type);

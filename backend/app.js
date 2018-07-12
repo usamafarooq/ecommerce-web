@@ -61,6 +61,7 @@ mongoose.connect(dbConfig.url)
 var user = require('./routes/user');
 var roles = require('./routes/role');
 var modules = require('./routes/modules');
+var category = require('./routes/category');
 
 app.get("/", function (req, res) {
     res.send("Please use /admin");
@@ -106,7 +107,15 @@ app.get('/deletemodule/:id', modules.delete);
 
 app.post('/updatemodule/:id', modules.update);
 
+app.get('/category', category.category);
 
+app.post('/createcategory', category.create);
+
+app.get('/editcategory/:id', category.edit);
+
+app.get('/deletecategory/:id', category.delete);
+
+app.post('/updatecategory/:id', category.update);
 
 
 app.use(app.router);
