@@ -75,30 +75,79 @@ exports.edit = function(req, res) {
 	});
 };
 
+exports.update = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	var input = req.body;
+	var firstKey = Object.keys(input)[0];
+	input = JSON.parse(firstKey);
+	var permission = input.permission
+	for (var i = 0; i < Object.keys(permission).length; i++) {
+		var input = {
+		    view: permission[i].view,
+		    view_all: permission[i].view_all,
+		    created: permission[i].created,
+		    edit: permission[i].edit,
+		    deleted: permission[i].deleted,
+		    disable: permission[i].disable,
+	    }
+		db.permission.findByIdAndUpdate(permission[i].id, input, {new: true})
+	    .then(note => {
+	        res.json(note);
+	    }).catch(err => {
+	        res.json(err);
+	    });
+		// const per = new db.permission({
+	 //        role_id: data._id,
+		//     module_id: permission[i].module_id,
+		//     view: permission[i].view,
+		//     view_all: permission[i].view_all,
+		//     created: permission[i].created,
+		//     edit: permission[i].edit,
+		//     deleted: permission[i].deleted,
+		//     disable: permission[i].disable,
+	 //    });
+	 //    // Save Note in the database
+	 //    per.save()
+	 //    .then(role_permission => {
+	 //    	console.log(role_permission)
+	 //    }).catch(err => {
+	 //        console.log(err);
+	 //    });
+	}
+};
+
 exports.permission = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	var id = req.params.id;
-	db.modules.aggregate([
+	// db.permission.find({role_id: id}, function(err, role) {
+	// 	res.json(role);
+	// });
+	db.permission.find({role_id: id}).populate('module_id').exec(function (err, result) {
+		res.json(result);
+    //console.log(JSON.stringify(result));
+   });
+	/*db.modules.aggregate([
+		
 	   {
 	     $lookup:
 	       {
 	         from: "permission",
 	         localField: "_id",
 	         foreignField: "module_id",
-	         as: "role"
+	         as: "permission"
 	       }
 	  }
 	], function (err, response) {
         console.log('Error=' + err); 
           if (err){
-            console.log('Error in fetching locations' + err);
-            return (err);
+            res.json(err);
           }
-          console.log(response); 
-          //response.send(JSON.stringify(res));
-    })
+          res.json(response);
+    })*/
 	// db.modules.find()
  //    .then(module => {
  //    	//var mo = JSON.parse(JSON.stringify(module))

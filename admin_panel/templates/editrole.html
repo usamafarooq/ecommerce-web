@@ -26,7 +26,7 @@
                             <div class="form-group row">
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Role</label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="form.name" value="" name="role" id="example-text-input" placeholder="">
+                                    <input class="form-control" type="text" ng-model="form.name" value="" name="role" id="example-text-input" placeholder="" disabled="">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -49,9 +49,9 @@
                                 </div>
                             </div>
                             
-                            <div class="form-group row" ng-repeat="m in module">
-                                <input type="hidden" name="id" class="module_id" value="{{m._id}}">
-                                <label for="example-text-input" class="col-sm-3 col-form-label" style="    margin-top: -11px;">{{m.name}}</label>
+                            <div class="form-group row" ng-repeat="m in module" ng-if="m.module_id != null">
+                                <input type="hidden" name="id" class="id" value="{{m._id}}">
+                                <label for="example-text-input" class="col-sm-3 col-form-label" style="    margin-top: -11px;">{{m.module_id.name}}</label>
                                 <div class="col-sm-9" style="    margin-top: -29px;">
                                     <table class="table  ">
 
@@ -59,37 +59,37 @@
                                             <tr>
                                                 <td>
                                                     <div class="col-sm-2">
-                                                        <input type="checkbox" class="view" data-toggle="toggle" ng-model="form.m._id[view]" name="{{m._id}}[view]" value="1" data-on="Yes" data-off="No">
+                                                        <input type="checkbox" class="view" data-toggle="toggle" ng-model="form.m._id[view]" ng-checked="m.view == 1" name="{{m._id}}[view]" value="1" data-on="Yes" data-off="No">
 
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-sm-2">
-                                                        <input type="checkbox" class="view_all" data-toggle="toggle" ng-model="form.m._id[view_all]" name="{{m._id}}[view_all]" value="1" data-on="Yes" data-off="No">
+                                                        <input type="checkbox" class="view_all" data-toggle="toggle" ng-model="form.m._id[view_all]" ng-checked="m.view_all == 1" name="{{m._id}}[view_all]" value="1" data-on="Yes" data-off="No">
 
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-sm-2">
-                                                        <input type="checkbox" class="edit" data-toggle="toggle" ng-model="form.m._id[edit]" name="{{m._id}}[edit]" value="1" data-on="Yes" data-off="No">
+                                                        <input type="checkbox" class="edit" data-toggle="toggle" ng-model="form.m._id[edit]" ng-checked="m.edit == 1" name="{{m._id}}[edit]" value="1" data-on="Yes" data-off="No">
 
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-sm-2">
-                                                        <input type="checkbox" class="created" data-toggle="toggle" ng-model="form.m._id[created]" name="{{m._id}}[created]" value="1" data-on="Yes" data-off="No">
+                                                        <input type="checkbox" class="created" data-toggle="toggle" ng-model="form.m._id[created]" ng-checked="m.created == 1" name="{{m._id}}[created]" value="1" data-on="Yes" data-off="No">
 
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-sm-2">
-                                                        <input type="checkbox" class="deleted" data-toggle="toggle" ng-model="form.m._id[deleted]" name="{{m._id}}[deleted]" value="1" data-on="Yes" data-off="No">
+                                                        <input type="checkbox" class="deleted" data-toggle="toggle" ng-model="form.m._id[deleted]" ng-checked="m.deleted == 1" name="{{m._id}}[deleted]" value="1" data-on="Yes" data-off="No">
 
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-sm-2">
-                                                        <input type="checkbox" class="disable" data-toggle="toggle" ng-model="form.m._id[disable]" name="{{m._id}}[disable]" value="1" data-on="Yes" data-off="No">
+                                                        <input type="checkbox" class="disable" data-toggle="toggle" ng-model="form.m._id[disable]" ng-checked="m.disable == 1" name="{{m._id}}[disable]" value="1" data-on="Yes" data-off="No">
 
                                                     </div>
                                                 </td>
