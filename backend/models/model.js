@@ -53,6 +53,8 @@ var category = mongoose.Schema({
     name: String,
     sort: String,
     url: String,
+    short_description: String,
+    description: String,
     parent_id: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
 }, {
     timestamps: true
