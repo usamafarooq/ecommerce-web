@@ -65,56 +65,75 @@ app.controller('mainCtrl', function($scope,$http,$location) {
     }
     $http({
         method: 'GET',
-        url: api + "usermodules",
+        url: api + "edituser/"+localStorage.getItem('login_id'),
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(function(data, status, headers, config) {
-        var module = [];
-        var con = 0;
-        for (var i = 0; i < data.data.length; i++) {
-            var main = data.data[i]
-            if (!main.parent_id) {
-                module[con] = main
-                for (var a = 0; a < data.data.length; a++) {
-                    var mains = data.data[a]
-                    
-                    if ( main._id == mains.parent_id ) 
-                    {
-                        if (!module[con].children) {
-                            module[con].children = []
+        var role_id = data.data.role
+        $http({
+            method: 'GET',
+            url: api + "usermodules/"+role_id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            var module = [];
+            var con = 0;
+            for (var i = 0; i < data.data.length; i++) {
+                var main = data.data[i]
+                main = main.module_id
+                //console.log(main)
+                if (main != null) {
+                    //console.log(main)
+                    if (!main.parent_id) {
+                        module[con] = main
+                        for (var a = 0; a < data.data.length; a++) {
+                            var mains = data.data[a].module_id
+                            if (mains != null) {
+                                if ( main._id == mains.parent_id ) 
+                                {
+                                    if (!module[con].children) {
+                                        module[con].children = []
+                                    }
+                                    module[con].children[module[con].children.length] = mains;
+                                }
+                            }
                         }
-                        module[con].children[module[con].children.length] = mains;
+                        con++;
+                    }
+                    else if (main.parent_id == 0){
+                        module[con] = main
+                        for (var a = 0; a < data.data.length; a++) {
+                            var mains = data.data[a].module_id
+                            if (mains != null) {
+                                if ( main._id == mains.parent_id ) 
+                                {
+                                    if (!module[con].children) {
+                                        module[con].children = []
+                                    }
+                                    module[con].children[module[con].children.length] = mains;
+                                }
+                            }
+                        }
+                        con++;
                     }
                 }
-                con++;
-            }
-            else if (main.parent_id == 0){
-                module[con] = main
-                for (var a = 0; a < data.data.length; a++) {
-                    var mains = data.data[a]
-                    
-                    if ( main._id == mains.parent_id ) 
-                    {
-                        if (!module[con].children) {
-                            module[con].children = []
-                        }
-                        module[con].children[module[con].children.length] = mains;
-                    }
+                if (data.data.length == (i+1)) {
+                    $scope.modules = module
+                    setTimeout(function() {
+                        $("#side-menu").metisMenu()
+                    }, 300)
                 }
-                con++;
             }
-        }
-        //module = JSON.parse(module)
-        //console.log(module)
-        $scope.modules = module
-        //console.log($scope.modules)
-        setTimeout(function() {
-            $("#side-menu").metisMenu()
-        })
-        //$("#side-menu").metisMenu()
-        //$scope.modules = data.data
-    });
+            //module = JSON.parse(module)
+            //console.log(module)
+            
+            //$("#side-menu").metisMenu()
+            //$scope.modules = data.data
+        });
+    })
+        
 });
 
 
@@ -503,7 +522,7 @@ app.controller('createroleCtrl', function($scope,$http,$location) {
 });
 
 app.controller('editroleCtrl', function($scope,$http,$location,$routeParams) {
-    $scope.role
+    //$scope.role
     $scope.form
     var currentId = $routeParams.name;
     //console.log(currentId)
@@ -516,7 +535,13 @@ app.controller('editroleCtrl', function($scope,$http,$location,$routeParams) {
         }
     }).then(function(data, status, headers, config) {
         console.log(data.data)
-        $scope.role = data.data
+        $scope.module = data.data
+        setTimeout(function() {
+            $('input[data-toggle="toggle"]').bootstrapToggle({
+                on: 'Yes',
+                off: 'No'
+            });
+        })
     })
     $http({
         method: 'GET',
@@ -528,42 +553,100 @@ app.controller('editroleCtrl', function($scope,$http,$location,$routeParams) {
         console.log(data.data)
         $scope.form = data.data
     })
-    $scope.module
-    $http({
-        method: 'GET',
-        url: api + "modules",
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    }).then(function(data, status, headers, config) {
-        $scope.module = data.data
-        setTimeout(function() {
-            $('input[data-toggle="toggle"]').bootstrapToggle({
-                on: 'Yes',
-                off: 'No'
-            });
-        })
-    })
+    // $scope.module
+    // $http({
+    //     method: 'GET',
+    //     url: api + "modules",
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     }
+    // }).then(function(data, status, headers, config) {
+    //     $scope.module = data.data
+    //     setTimeout(function() {
+    //         $('input[data-toggle="toggle"]').bootstrapToggle({
+    //             on: 'Yes',
+    //             off: 'No'
+    //         });
+    //     })
+    // })
     $scope.submitForm = function() {
-        //console.log($scope.form)
+        var form = {'permission' : {}}
+        // form['role'] = $scope.form.role
+        // form['permission'] = []
+        var con = 0
+        $('input.view').each(function() {
+            var val = 0;
+            if ($(this).is(':checked')) {
+                val = 1
+            }
+            form['permission'][con] = {'view' : val,'view_all' : val,'edit' : val,'created' : val,'deleted' : val,'disable' : val, 'id':val}
+            con++;
+        })
+        var con = 0
+        $('input.view_all').each(function() {
+            var val = 0;
+            if ($(this).is(':checked')) {
+                val = 1
+            }
+            form['permission'][con].view_all = val
+            con++;
+        })
+        var con = 0
+        $('input.disable').each(function() {
+            var val = 0;
+            if ($(this).is(':checked')) {
+                val = 1
+            }
+            form['permission'][con].disable = val
+            con++;
+        })
+        var con = 0
+        $('input.edit').each(function() {
+            var val = 0;
+            if ($(this).is(':checked')) {
+                val = 1
+            }
+            form['permission'][con].edit = val
+            con++;
+        })
+        var con = 0
+        $('input.created').each(function() {
+            var val = 0;
+            if ($(this).is(':checked')) {
+                val = 1
+            }
+            form['permission'][con].created = val
+            con++;
+        })
+        var con = 0
+        $('input.deleted').each(function() {
+            var val = 0;
+            if ($(this).is(':checked')) {
+                val = 1
+            }
+            form['permission'][con].deleted = val
+            con++;
+        })
+        var con = 0
+        $('input.id').each(function() {
+            var val = $(this).val();
+            form['permission'][con].id = val
+            con++;
+        })
+        //form.permission = JSON.parse(form.permission)
+        form = JSON.stringify(form)
         $http({
             method: 'POST',
-            //cache: false,
-            url: api + "updatemodule/"+currentId,
-            data: {
-                'name' : $scope.form.name,
-                'main_name' : $scope.form.main_name,
-                'sort' : $scope.form.sort,
-                'icon' : $scope.form.icon,
-                'url' : $scope.form.url,
-                'parent_id' : $scope.form.parent_id,
-            },
+            url: api + "updaterole",
+            data: form,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function(data, status, headers, config) {
             console.log(data.data)
-            $location.path('/modules')
+            $location.path('/role')
         })
+        //console.log(form)
+        
     }
 });

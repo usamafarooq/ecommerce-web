@@ -27,9 +27,7 @@ app.use(bodyParser.json())
 // 	app.use(express.errorHandler());
 // }
 
-var user = require('./routes/user');
-var roles = require('./routes/role');
-var modules = require('./routes/modules');
+
 
 
 var dbConfig = require('./config/config.js');
@@ -60,6 +58,10 @@ mongoose.connect(dbConfig.url)
 });
 
 
+var user = require('./routes/user');
+var roles = require('./routes/role');
+var modules = require('./routes/modules');
+
 app.get("/", function (req, res) {
     res.send("Please use /admin");
 });
@@ -86,11 +88,13 @@ app.post('/createrole', roles.create);
 
 app.get('/editrole/:id', roles.edit);
 
+app.post('/updaterole', roles.update);
+
 app.get('/role_permission/:id', roles.permission);
 
 app.get('/deleterole/:id', roles.delete);
 
-app.get('/usermodules', modules.usermodule);
+app.get('/usermodules/:id', modules.usermodule);
 
 app.get('/modules', modules.module);
 

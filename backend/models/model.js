@@ -38,7 +38,7 @@ var modules = mongoose.Schema({
 
 var permission = mongoose.Schema({
     role_id: String,
-    module_id: String,
+    module_id: {type: mongoose.Schema.Types.ObjectId, ref: 'modules'},
     view: String,
     view_all: String,
     created: String,
