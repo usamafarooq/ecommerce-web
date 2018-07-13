@@ -60,16 +60,28 @@ var category = mongoose.Schema({
     timestamps: true
 });
 
+var media = mongoose.Schema({
+    originalname: String,
+    destination: String,
+    filename: String,
+    path: String,
+    size: String,
+}, {
+    timestamps: true
+});
+
 var User = mongoose.model('User', User);
 var user_type = mongoose.model('user_type', user_type);
 var modules = mongoose.model('modules', modules);
 var permission = mongoose.model('permission', permission);
 var category = mongoose.model('category', category);
+var media = mongoose.model('media', media);
 module.exports = {
     User: User, 
     user_type:user_type, 
     modules:modules, 
     permission:permission, 
-    category:category
+    category:category, 
+    media:media
 }
 //module.exports = mongoose.model(User: User, user_type:user_type);

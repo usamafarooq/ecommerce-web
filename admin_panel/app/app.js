@@ -1,6 +1,7 @@
 var api = 'http://localhost:4300/';
 var site_url = 'http://localhost/ecommerce-web/';
 var admin_url = 'http://localhost/ecommerce-web/admin_panel';
+var media = 'http://localhost/ecommerce-web/uploads';
 var app = angular.module("ecommerceApp", ["ngRoute"]);
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
@@ -60,12 +61,17 @@ app.config(function($routeProvider, $locationProvider) {
         templateUrl : "templates/editcategory.html",
         controller: 'editcategoryCtrl',
         cache: false
+    }).when("/media", {
+        templateUrl : "templates/media.html",
+        controller: 'mediaCtrl',
+        cache: false
     });
     //$urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
 });
 
 app.controller('mainCtrl', function($scope,$http,$location) {
+    $scope.media_url = media
     $scope.current = $location.path();
     $scope.modules;
     if (!localStorage.getItem('login_id')) {
@@ -146,6 +152,22 @@ app.controller('mainCtrl', function($scope,$http,$location) {
         });
     })
         
+});
+
+app.controller('mediaCtrl', function($scope,$http) {
+    $scope.onFileSelect = function ($files) {
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            console.log($file)
+            var formData = new FormData();
+            formData.append('media', $file);
+            console.log(formData)
+            $http({ method: 'POST', url: api + "addmedia", data: formData, headers: { 'Content-Type': undefined }, transformRequest: angular.identity })
+            .then(function (data, status, headers, config) {
+                console.log(data)
+            });
+        }
+    }
 });
 
 

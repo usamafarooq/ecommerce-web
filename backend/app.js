@@ -57,11 +57,17 @@ mongoose.connect(dbConfig.url)
     process.exit();
 });
 
+var multer = require('multer');
+var upload = multer({ dest: '../uploads/' })
+
+
 
 var user = require('./routes/user');
 var roles = require('./routes/role');
 var modules = require('./routes/modules');
 var category = require('./routes/category');
+var media = require('./routes/media');
+
 
 app.get("/", function (req, res) {
     res.send("Please use /admin");
@@ -69,6 +75,8 @@ app.get("/", function (req, res) {
 app.get("/admin", function (req, res) {
     res.render('admin/index', {title: 'Express'});
 });
+
+app.post('/addmedia', upload.single('media'), media.add);
 
 app.post('/login', user.login);
 
