@@ -76,12 +76,15 @@ app.get("/admin", function (req, res) {
     res.render('admin/index', {title: 'Express'});
 });
 
+app.get('/media', media.media);
+
 app.post('/addmedia', upload.single('media'), media.add);
+
+app.get('/deletemedia/:id', media.delete);
 
 app.post('/login', user.login);
 
 app.post('/createuser', user.create);
-
 
 app.get('/users', user.users);
 

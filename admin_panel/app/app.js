@@ -155,18 +155,38 @@ app.controller('mainCtrl', function($scope,$http,$location) {
 });
 
 app.controller('mediaCtrl', function($scope,$http) {
+    $scope.media
+    $http({
+        method: 'GET',
+        url: api + "media",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.media = data.data
+    });
     $scope.onFileSelect = function ($files) {
         for (var i = 0; i < $files.length; i++) {
             var $file = $files[i];
-            console.log($file)
             var formData = new FormData();
             formData.append('media', $file);
             console.log(formData)
             $http({ method: 'POST', url: api + "addmedia", data: formData, headers: { 'Content-Type': undefined }, transformRequest: angular.identity })
             .then(function (data, status, headers, config) {
-                console.log(data)
+                $scope.media = data.data
             });
         }
+    }
+    $scope.deletemedia = function(id) {
+        $http({
+            method: 'GET',
+            url: api + "deletemedia/"+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            $scope.media = data.data
+        })
     }
 });
 
