@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"ecommerce.tags"},{"v":2,"unique":true,"key":{"url":1},"name":"url_1","ns":"ecommerce.tags","background":true}],"uuid":"00f80af8866243759cf96f241dfe7507"}
