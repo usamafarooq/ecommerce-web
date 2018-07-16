@@ -1,0 +1,59 @@
+<div class="content">
+					<!-- Content Header (Page header) -->
+					<div class="content-header">
+						<div class="header-icon">
+							<i class="pe-7s-box1"></i>
+						</div>
+						<div class="header-title">
+							<h1>View Attributes</h1>
+							<small> </small>
+							<ol class="breadcrumb">
+								<li><a href="home"><i class="pe-7s-home"></i> Home</a></li>
+
+								<li class="active">View Attributes</li>
+							</ol>
+						</div>
+					</div> <!-- /. Content Header (Page header) -->
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-bd">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<h4>View Attributes</h4>
+										<a href="attribute/create"><button class="btn btn-info pull-right">Add Attribute</button></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									
+									<div class="table-responsive">
+										<table id="dataTableExample2" class="table table-bordered table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Id</th>
+													<th>Name</th>
+													<th>Type</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+										    <tbody>
+										    	
+												<tr ng-repeat="a in attribute">
+													<td>{{a._id}}</td>
+													<td>{{a.name}}</td>
+													<td>{{a.type}}</td>
+													<td>
+														<a href="attribute/edit/{{a._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">mode_edit</i></button></a>
+		                                                <a href="" data-ng-click="deleteattribute(a._id)"><button class="btn btn-danger btn-circle material-ripple"><i class="material-icons">delete_forever</i></button></a>
+	                                                </td>
+												</tr>
+											</tbody>
+										</table>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="height: 450px;"></div>
+				</div> 

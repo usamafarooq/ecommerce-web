@@ -8,12 +8,13 @@
                 <h1>Add Category</h1>
                 <small></small>
                 <ol class="breadcrumb">
-                    <li><a href="<?php echo base_url() ?>admin/"><i class="pe-7s-home"></i> Home</a></li>
+                    <li><a href="/home"><i class="pe-7s-home"></i> Home</a></li>
                     <li class="active">Add Category</li>
                 </ol>
             </div>
         </div>
         <!-- /. Content Header (Page header) -->
+
 
         <form method="post"  enctype="multipart/form-data" ng-submit="submitForm()">
 
@@ -44,14 +45,14 @@
                                 </div>
 
                             </div>
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
 
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Url<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input class="form-control" name="password" ng-model="form.url" type="text" value=""  placeholder="">
                                 </div>
 
-                            </div>
+                            </div> -->
                             <div class="form-group row">
 
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Parent Category<span class="required">*</span></label>
@@ -81,6 +82,47 @@
                                 </div>
 
                             </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Featured Image<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#media" >Browse</button>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Gallery<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#media">Browse</button>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Featured image<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#media">Browse</button>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Gallery<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#media">Browse</button>
+                                </div>
+
+                            </div>
+
 
 
 

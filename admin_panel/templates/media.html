@@ -1,0 +1,48 @@
+<div class="content">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="header-icon">
+                <i class="pe-7s-note2"></i>
+            </div>
+            <div class="header-title">
+                <h1>Media</h1>
+                <small></small>
+                <ol class="breadcrumb">
+                    <li><a href="home"><i class="pe-7s-home"></i> Home</a></li>
+                    <li class="active">Media</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /. Content Header (Page header) -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-bd ">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <h4>Media</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post">
+                            <h3>Add New</h3>
+                            <input class="applctn-form-input file form-control" type="file" id="photo" name="photo" onchange="angular.element(this).scope().onFileSelect(this.files)" ng-model="Register.PhotoImgID">
+                        </form>
+                        <div class="row">
+                            <br><br>
+                            <div class="col-md-2" ng-repeat="m in media">
+                                <a href="media/view/{{m._id}}">
+                                    <img src="{{media_url}}/{{m.filename}}" width="100%" height="200">
+                                </a>
+                                <br><br>
+                                <center>
+                                    <button ng-click="deletemedia(m._id)" class="btn btn-danger">Select</button>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>

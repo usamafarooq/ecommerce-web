@@ -1,6 +1,7 @@
 var api = 'http://localhost:4300/';
 var site_url = 'http://localhost/ecommerce-web/';
 var admin_url = 'http://localhost/ecommerce-web/admin_panel';
+var media = 'http://localhost/ecommerce-web/uploads';
 var app = angular.module("ecommerceApp", ["ngRoute"]);
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
@@ -60,12 +61,41 @@ app.config(function($routeProvider, $locationProvider) {
         templateUrl : "templates/editcategory.html",
         controller: 'editcategoryCtrl',
         cache: false
+    }).when("/media", {
+        templateUrl : "templates/media.html",
+        controller: 'mediaCtrl',
+        cache: false
+    }).when("/tags", {
+        templateUrl : "templates/tags.html",
+        controller: 'tagsCtrl',
+        cache: false
+    }).when("/tags/create", {
+        templateUrl : "templates/createtags.html",
+        controller: 'createtagsCtrl',
+        cache: false
+    }).when("/tags/edit/:name", {
+        templateUrl : "templates/edittags.html",
+        controller: 'edittagsCtrl',
+        cache: false
+    }).when("/attribute", {
+        templateUrl : "templates/attribute.html",
+        controller: 'attributeCtrl',
+        cache: false
+    }).when("/attribute/create", {
+        templateUrl : "templates/createattribute.html",
+        controller: 'createattributeCtrl',
+        cache: false
+    }).when("/attribute/edit/:name", {
+        templateUrl : "templates/editattribute.html",
+        controller: 'editattributeCtrl',
+        cache: false
     });
     //$urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
 });
 
 app.controller('mainCtrl', function($scope,$http,$location) {
+    $scope.media_url = media
     $scope.current = $location.path();
     $scope.modules;
     if (!localStorage.getItem('login_id')) {
@@ -146,6 +176,65 @@ app.controller('mainCtrl', function($scope,$http,$location) {
         });
     })
         
+});
+
+app.controller('mediaCtrl', function($scope,$http) {
+    $scope.media
+    $http({
+        method: 'GET',
+        url: api + "media",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.media = data.data
+    });
+    $scope.onFileSelect = function ($files) {
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            var formData = new FormData();
+            formData.append('media', $file);
+            console.log(formData)
+            $http({ method: 'POST', url: api + "addmedia", data: formData, headers: { 'Content-Type': undefined }, transformRequest: angular.identity })
+            .then(function (data, status, headers, config) {
+                $scope.media = data.data
+            });
+        }
+    }
+    $scope.deletemedia = function(id) {
+        $http({
+            method: 'GET',
+            url: api + "deletemedia/"+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            $scope.media = data.data
+        })
+    }
+
+    mediaID = [];
+    $scope.selectmedia = function (id){
+
+        if (mediaID.length > 0 ) {
+
+            for (var i = mediaID.length - 1; i >= 0; i--) {
+                if (mediaID[i].id == id) 
+                {
+                    mediaID.push( {'id' : id});
+                    continue;
+                }
+
+            }
+        }
+        else
+        {
+            mediaID.push( {'id' : id});
+        }
+        
+        console.log(mediaID);
+
+    }
 });
 
 
@@ -771,6 +860,8 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
                 'sort' : $scope.form.sort,
                 'url' : $scope.form.url,
                 'parent_id' : $scope.form.parent_id,
+                'short_description' : $scope.form.short_description,
+                'description' : $scope.form.description,
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -778,6 +869,199 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
         }).then(function(data, status, headers, config) {
             console.log(data.data)
             $location.path('/category')
+        })
+    }
+});
+
+app.controller('tagsCtrl', function($scope,$http,$location,$route) {
+    $scope.tags
+    $http({
+        method: 'GET',
+        url: api + "tags",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.tags = data.data
+        setTimeout(function(argument) {
+            $("#dataTableExample2").DataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    {extend: 'copy', className: 'btn-sm'},
+                    {extend: 'csv', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'excel', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'pdf', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'print', className: 'btn-sm'}
+                ],
+                "order": [[ 0, "desc" ]]
+            });
+        }, 300)
+    });
+    $scope.deletetags = function(id) {
+        $http({
+            method: 'GET',
+            url: api + "deletetags/"+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            $route.reload()
+        })
+    }
+});
+
+app.controller('createtagsCtrl', function($scope,$http,$location) {
+    $scope.submitForm = function() {
+        console.log($scope.form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "createtags",
+            data: $scope.form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/tags')
+        })
+    }
+});
+
+app.controller('edittagsCtrl', function($scope,$http,$location,$routeParams) {
+    $scope.form
+    var currentId = $routeParams.name;
+    $http({
+        method: 'GET',
+        url: api + "edittags/"+currentId,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        // var form = data.data
+        // $scope.form.first_name = form.first_name
+        // $scope.form.last_name = form.last_name
+        // $scope.form.username = form.username
+        // $scope.form.email = form.email
+        // $scope.form.password = form.password
+        // $scope.form.role = form.role
+        $scope.form = data.data
+    })
+    $scope.submitForm = function() {
+        //console.log($scope.form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "updatetags/"+currentId,
+            data: {
+                'name' : $scope.form.name,
+                'url' : $scope.form.url,
+                'short_description' : $scope.form.short_description,
+                'description' : $scope.form.description,
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/tags')
+        })
+    }
+});
+
+app.controller('attributeCtrl', function($scope,$http,$location,$route) {
+    $scope.attribute
+    $http({
+        method: 'GET',
+        url: api + "attribute",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.attribute = data.data
+        setTimeout(function(argument) {
+            $("#dataTableExample2").DataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    {extend: 'copy', className: 'btn-sm'},
+                    {extend: 'csv', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'excel', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'pdf', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'print', className: 'btn-sm'}
+                ],
+                "order": [[ 0, "desc" ]]
+            });
+        }, 300)
+    });
+    $scope.deleteattribute = function(id) {
+        $http({
+            method: 'GET',
+            url: api + "deleteattribute/"+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            $route.reload()
+        })
+    }
+});
+
+app.controller('createattributeCtrl', function($scope,$http,$location) {
+    $scope.submitForm = function() {
+        console.log($scope.form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "createattribute",
+            data: $scope.form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/attribute')
+        })
+    }
+});
+
+app.controller('editattributeCtrl', function($scope,$http,$location,$routeParams) {
+    $scope.form
+    var currentId = $routeParams.name;
+    $http({
+        method: 'GET',
+        url: api + "editattribute/"+currentId,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        // var form = data.data
+        // $scope.form.first_name = form.first_name
+        // $scope.form.last_name = form.last_name
+        // $scope.form.username = form.username
+        // $scope.form.email = form.email
+        // $scope.form.password = form.password
+        // $scope.form.role = form.role
+        $scope.form = data.data
+    })
+    $scope.submitForm = function() {
+        //console.log($scope.form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "updateattribute/"+currentId,
+            data: {
+                'name' : $scope.form.name,
+                'url' : $scope.form.url,
+                'type' : $scope.form.type,
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/attribute')
         })
     }
 });

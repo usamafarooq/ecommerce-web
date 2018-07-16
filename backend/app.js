@@ -57,11 +57,19 @@ mongoose.connect(dbConfig.url)
     process.exit();
 });
 
+var multer = require('multer');
+var upload = multer({ dest: '../uploads/' })
+
+
 
 var user = require('./routes/user');
 var roles = require('./routes/role');
 var modules = require('./routes/modules');
 var category = require('./routes/category');
+var tags = require('./routes/tags');
+var attribute = require('./routes/attribute');
+var media = require('./routes/media');
+
 
 app.get("/", function (req, res) {
     res.send("Please use /admin");
@@ -70,10 +78,15 @@ app.get("/admin", function (req, res) {
     res.render('admin/index', {title: 'Express'});
 });
 
+app.get('/media', media.media);
+
+app.post('/addmedia', upload.single('media'), media.add);
+
+app.get('/deletemedia/:id', media.delete);
+
 app.post('/login', user.login);
 
 app.post('/createuser', user.create);
-
 
 app.get('/users', user.users);
 
@@ -116,6 +129,26 @@ app.get('/editcategory/:id', category.edit);
 app.get('/deletecategory/:id', category.delete);
 
 app.post('/updatecategory/:id', category.update);
+
+app.get('/tags', tags.tags);
+
+app.post('/createtags', tags.create);
+
+app.get('/edittags/:id', tags.edit);
+
+app.get('/deletetags/:id', tags.delete);
+
+app.post('/updatetags/:id', tags.update);
+
+app.get('/attribute', attribute.attribute);
+
+app.post('/createattribute', attribute.create);
+
+app.get('/editattribute/:id', attribute.edit);
+
+app.get('/deleteattribute/:id', attribute.delete);
+
+app.post('/updateattribute/:id', attribute.update);
 
 
 app.use(app.router);
