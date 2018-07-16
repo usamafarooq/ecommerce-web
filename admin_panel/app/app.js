@@ -212,6 +212,29 @@ app.controller('mediaCtrl', function($scope,$http) {
             $scope.media = data.data
         })
     }
+
+    mediaID = [];
+    $scope.selectmedia = function (id){
+
+        if (mediaID.length > 0 ) {
+
+            for (var i = mediaID.length - 1; i >= 0; i--) {
+                if (mediaID[i].id == id) 
+                {
+                    mediaID.push( {'id' : id});
+                    continue;
+                }
+
+            }
+        }
+        else
+        {
+            mediaID.push( {'id' : id});
+        }
+        
+        console.log(mediaID);
+
+    }
 });
 
 
