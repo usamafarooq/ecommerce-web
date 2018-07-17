@@ -221,8 +221,12 @@ app.controller('mediaCtrl', function($scope,$http) {
     }
 
 
-
-    mediaID = [];   
+    // document.getElementsByClassName('selectMedia').addEventListener('click', function() {
+      mediaID = [];
+    // });
+    // $('.selectMedia').click( function(){
+    //   alert('asdf');
+    // });
     $scope.selectmedia = function (id){
 
         var is_repeated = 0;
