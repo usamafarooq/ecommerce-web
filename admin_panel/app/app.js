@@ -133,7 +133,7 @@ app.controller('mainCtrl', function($scope,$http,$location) {
                         for (var a = 0; a < data.data.length; a++) {
                             var mains = data.data[a].module_id
                             if (mains != null) {
-                                if ( main._id == mains.parent_id ) 
+                                if ( main._id == mains.parent_id )
                                 {
                                     if (!module[con].children) {
                                         module[con].children = []
@@ -149,7 +149,7 @@ app.controller('mainCtrl', function($scope,$http,$location) {
                         for (var a = 0; a < data.data.length; a++) {
                             var mains = data.data[a].module_id
                             if (mains != null) {
-                                if ( main._id == mains.parent_id ) 
+                                if ( main._id == mains.parent_id )
                                 {
                                     if (!module[con].children) {
                                         module[con].children = []
@@ -170,12 +170,19 @@ app.controller('mainCtrl', function($scope,$http,$location) {
             }
             //module = JSON.parse(module)
             //console.log(module)
-            
+
             //$("#side-menu").metisMenu()
             //$scope.modules = data.data
         });
     })
-        
+
+    $scope.storeLocalStorage = function(btnId, limit ) {
+      localStorage.setItem('btnId',btnId);
+        localStorage.setItem('imgLimit',limit);
+    }
+
+
+
 });
 
 app.controller('mediaCtrl', function($scope,$http) {
@@ -213,25 +220,40 @@ app.controller('mediaCtrl', function($scope,$http) {
         })
     }
 
-    mediaID = [];
+
+
+    mediaID = [];   
     $scope.selectmedia = function (id){
 
+        var is_repeated = 0;
         if (mediaID.length > 0 ) {
 
             for (var i = mediaID.length - 1; i >= 0; i--) {
-                if (mediaID[i].id == id) 
+                if (mediaID[i].id == id)
                 {
-                    mediaID.push( {'id' : id});
-                    continue;
+                  is_repeated = 1;
                 }
 
             }
         }
-        else
+
+        if (localStorage.getItem('imgLimit') == 'multiple')
         {
-            mediaID.push( {'id' : id});
+          if(is_repeated == 0)
+          {
+              mediaID.push( {'id' : id});
+          }
+          else{
+            var removeIndex = mediaID.map(function(item) { return item.id; }).indexOf(id);
+
+            // remove object
+            mediaID.splice(removeIndex, 1);
+          }
         }
-        
+        else{
+          mediaID[0] = [{id : id}];
+        }
+
         console.log(mediaID);
 
     }
@@ -748,7 +770,7 @@ app.controller('editroleCtrl', function($scope,$http,$location,$routeParams) {
             $location.path('/role')
         })
         //console.log(form)
-        
+
     }
 });
 
@@ -788,6 +810,9 @@ app.controller('categoryCtrl', function($scope,$http,$location,$route) {
             $route.reload()
         })
     }
+
+
+
 });
 
 app.controller('createcategoryCtrl', function($scope,$http,$location) {
@@ -816,6 +841,8 @@ app.controller('createcategoryCtrl', function($scope,$http,$location) {
             $location.path('/category')
         })
     }
+
+
 });
 
 app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams) {
@@ -871,6 +898,8 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
             $location.path('/category')
         })
     }
+
+
 });
 
 app.controller('tagsCtrl', function($scope,$http,$location,$route) {

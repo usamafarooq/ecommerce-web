@@ -71,7 +71,7 @@
                     <!-- /.Full page search -->
                     <!-- /.Sidebar menu toggle icon -->
                     <!--Start dropdown menu-->
-                    
+
                 </ul>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown">
@@ -285,27 +285,27 @@
                     <!-- ng-class="{true: 'active', false: ''}[current == m.url]" -->
                     <li ng-repeat="m in modules">
                         <a href="{{m.url}}" class="material-ripple">
-                            <i class="material-icons">{{m.icon}}</i> 
+                            <i class="material-icons">{{m.icon}}</i>
                             {{m.name}}
                             <span class="fa arrow" ng-if="m.children != null"></span>
                         </a>
-                        
+
                         <ul class="nav nav-second-level" ng-if="m.children != null">
                             <li ng-repeat="a in m.children"><a href="{{a.url}}">{{a.name}}</a></li>
                         </ul>
                     </li>
                 </ul>
-                
+
             </div>
             <!-- /.sidebar-collapse -->
         </div>
         <!-- /.Left Sidebar-->
-        
+
         <div class=control-sidebar-bg></div>
         <div id=page-wrapper>
             <div ng-view></div>
         </div>
-        
+
 
         <div id="media" class="modal fade" role="dialog" ng-controller="mediaCtrl">
             <div class="modal-dialog modal-lg">
@@ -319,11 +319,11 @@
                         <div class="row">
                             <div class="col-md-2" ng-repeat="m in media">
                                 <a href="media/view/{{m._id}}">
-                                    <img src="{{media_url}}/{{m.filename}}" width="100%" height="100px">
+                                    <img src="{{media_url}}/{{m.filename}}" id="{{m._id}}" width="100%" height="100px">
                                 </a>
                                 <br><br>
                                 <center>
-                                    <button ng-click="selectmedia(m._id)" class="btn btn-danger"></button>
+                                    <button ng-click="selectmedia(m._id)" class="btn btn-primary">Select</button>
                                 </center>
                             </div>
                         </div>
@@ -369,7 +369,7 @@
     <script src="assets/dist/js/app.min.js"></script>
     <script src="assets/dist/js/page/dashboard.min.js"></script>
     <script src="assets/dist/js/jQuery.style.switcher.min.js"></script>
-    
+
 </body>
 
 
