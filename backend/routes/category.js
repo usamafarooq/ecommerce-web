@@ -19,9 +19,8 @@ exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	var input = req.body;
 	var firstKey = Object.keys(input)[0];
-	console.log(firstKey)
-	// var firstKey = Object.keys(input)[0];
-	// input = JSON.parse(firstKey);
+	input = JSON.parse(firstKey);
+	console.log(input)
 	// const note = new db.category(input);
   //   // Save Note in the database
   //   note.save()

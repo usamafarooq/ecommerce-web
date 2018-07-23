@@ -870,19 +870,19 @@ app.controller('createcategoryCtrl', function($scope,$http,$location) {
         // console.log($scope.form);
         var form = $scope.form;
         // var form = {'role' : $scope.form, 'permission' : {}}
-        var other_fields = [];
+        var other_fields = {};
         for (var i = 0; i < $('.custom-field-container').length; i++) {
           // console.log();
 
           var container = $('.custom-field-container')[i];
           var name = $(container).find('.custom-field-name').val();
           var value = $(container).find('.custom-field-value').val();
-
-          other_fields.push({name: name, value: value});
+          other_fields[i] = {name: name, value: value}
+          //other_fields.push({name: name, value: value});
 
         }
         form.other_fields = other_fields;
-        //form = JSON.stringify(form)
+        form = JSON.stringify(form)
         $http({
             method: 'POST',
             //cache: false,
