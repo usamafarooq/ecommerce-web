@@ -4,13 +4,13 @@ mongoose.plugin(slug)
 var User = mongoose.Schema({
     first_name: String,
     last_name: String,
-    username: { 
-        type: String, 
+    username: {
+        type: String,
         unique: true,
         index: true
     },
-    email: { 
-        type: String, 
+    email: {
+        type: String,
         unique: true,
         index: true
     },
@@ -58,6 +58,11 @@ var category = mongoose.Schema({
     short_description: String,
     description: String,
     parent_id: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
+    featured_img:Array,
+    gallery:Array,
+    mobile_featured_img:Array,
+    mobile_gallery:Array,
+    other_fields : Array,
 }, {
     timestamps: true
 });
@@ -98,13 +103,13 @@ var tags = mongoose.model('tags', tags);
 var attribute = mongoose.model('attribute', attribute);
 var media = mongoose.model('media', media);
 module.exports = {
-    User: User, 
-    user_type:user_type, 
-    modules:modules, 
-    permission:permission, 
-    category:category, 
-    tags:tags, 
-    attribute:attribute, 
+    User: User,
+    user_type:user_type,
+    modules:modules,
+    permission:permission,
+    category:category,
+    tags:tags,
+    attribute:attribute,
     media:media
 }
 //module.exports = mongoose.model(User: User, user_type:user_type);

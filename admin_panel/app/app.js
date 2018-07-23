@@ -178,7 +178,8 @@ app.controller('mainCtrl', function($scope,$http,$location) {
 
     $scope.storeLocalStorage = function(btnId, limit ) {
       localStorage.setItem('btnId',btnId);
-        localStorage.setItem('imgLimit',limit);
+      localStorage.setItem('imgLimit',limit);
+      localStorage.setItem('mediaID', []);
     }
 
 
@@ -222,13 +223,19 @@ app.controller('mediaCtrl', function($scope,$http) {
 
 
     // document.getElementsByClassName('selectMedia').addEventListener('click', function() {
-      mediaID = [];
+
     // });
     // $('.selectMedia').click( function(){
     //   alert('asdf');
     // });
-    $scope.selectmedia = function (id){
 
+    $scope.selectmedia = function (id){
+        if (localStorage.getItem('mediaID') == '')
+        {
+          mediaID = [];
+
+          localStorage.setItem('mediaID', '1');
+        }
         var is_repeated = 0;
         if (mediaID.length > 0 ) {
 
@@ -255,10 +262,22 @@ app.controller('mediaCtrl', function($scope,$http) {
           }
         }
         else{
-          mediaID[0] = [{id : id}];
+          mediaID[0] = {id : id};
         }
 
-        console.log(mediaID);
+        var row = '<ul>';
+        for (var i = 0; i < mediaID.length; i++)
+        {
+            row += '<li><img src="' + $('#'+mediaID[i].id).attr('src') + '" width="100px" height="100px"></li>';
+        }
+
+        row += '</ul>'
+
+
+        $('#'+localStorage.getItem('btnId')).closest('.form-group').next('.showSelectedImages').html(row);
+        $('#'+localStorage.getItem('btnId')).siblings('input').val(JSON.stringify(mediaID));
+
+
 
     }
 });
@@ -846,6 +865,56 @@ app.controller('createcategoryCtrl', function($scope,$http,$location) {
         })
     }
 
+
+    $scope.submitForm = function() {
+        // console.log($scope.form);
+        var form = $scope.form;
+        // var form = {'role' : $scope.form, 'permission' : {}}
+        var other_fields = [];
+        for (var i = 0; i < $('.custom-field-container').length; i++) {
+          // console.log();
+
+          var container = $('.custom-field-container')[i];
+          var name = $(container).find('.custom-field-name').val();
+          var value = $(container).find('.custom-field-value').val();
+
+          other_fields.push({name: name, value: value});
+
+        }
+        form.other_fields = other_fields;
+        //form = JSON.stringify(form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "createcategory",
+            data: $scope.form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/category')
+        })
+    }
+
+    $scope.choices = [{id: 'choice1'}];
+
+    $scope.addNewChoice = function() {
+      var newItemNo = $scope.choices.length+1;
+      $scope.choices.push({'id' : 'choice' + newItemNo, 'name' : 'choice' + newItemNo});
+    };
+
+    $scope.removeNewChoice = function(index) {
+      var newItemNo = $scope.choices.length-1;
+      if ( newItemNo !== 0 ) {
+        // $scope.choices.pop();
+        $scope.choices.splice(index, 1);
+      }
+    };
+
+    $scope.showAddChoice = function(choice) {
+      return choice.id === $scope.choices[$scope.choices.length-1].id;
+    };
 
 });
 

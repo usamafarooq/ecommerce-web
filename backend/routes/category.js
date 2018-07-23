@@ -19,15 +19,17 @@ exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	var input = req.body;
 	var firstKey = Object.keys(input)[0];
-	input = JSON.parse(firstKey);
-	const note = new db.category(input);
-    // Save Note in the database
-    note.save()
-    .then(data => {
-        res.json(data);
-    }).catch(err => {
-        res.json(err);
-    });
+	console.log(firstKey)
+	// var firstKey = Object.keys(input)[0];
+	// input = JSON.parse(firstKey);
+	// const note = new db.category(input);
+  //   // Save Note in the database
+  //   note.save()
+  //   .then(data => {
+  //       res.json(data);
+  //   }).catch(err => {
+  //       res.json(err);
+  //   });
 };
 
 exports.edit = function(req, res) {
