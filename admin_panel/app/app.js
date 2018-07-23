@@ -133,7 +133,7 @@ app.controller('mainCtrl', function($scope,$http,$location) {
                         for (var a = 0; a < data.data.length; a++) {
                             var mains = data.data[a].module_id
                             if (mains != null) {
-                                if ( main._id == mains.parent_id ) 
+                                if ( main._id == mains.parent_id )
                                 {
                                     if (!module[con].children) {
                                         module[con].children = []
@@ -149,7 +149,7 @@ app.controller('mainCtrl', function($scope,$http,$location) {
                         for (var a = 0; a < data.data.length; a++) {
                             var mains = data.data[a].module_id
                             if (mains != null) {
-                                if ( main._id == mains.parent_id ) 
+                                if ( main._id == mains.parent_id )
                                 {
                                     if (!module[con].children) {
                                         module[con].children = []
@@ -170,12 +170,20 @@ app.controller('mainCtrl', function($scope,$http,$location) {
             }
             //module = JSON.parse(module)
             //console.log(module)
-            
+
             //$("#side-menu").metisMenu()
             //$scope.modules = data.data
         });
     })
-        
+
+    $scope.storeLocalStorage = function(btnId, limit ) {
+      localStorage.setItem('btnId',btnId);
+      localStorage.setItem('imgLimit',limit);
+      localStorage.setItem('mediaID', []);
+    }
+
+
+
 });
 
 app.controller('mediaCtrl', function($scope,$http) {
@@ -213,26 +221,63 @@ app.controller('mediaCtrl', function($scope,$http) {
         })
     }
 
-    mediaID = [];
-    $scope.selectmedia = function (id){
 
+    // document.getElementsByClassName('selectMedia').addEventListener('click', function() {
+
+    // });
+    // $('.selectMedia').click( function(){
+    //   alert('asdf');
+    // });
+
+    $scope.selectmedia = function (id){
+        if (localStorage.getItem('mediaID') == '')
+        {
+          mediaID = [];
+
+          localStorage.setItem('mediaID', '1');
+        }
+        var is_repeated = 0;
         if (mediaID.length > 0 ) {
 
             for (var i = mediaID.length - 1; i >= 0; i--) {
-                if (mediaID[i].id == id) 
+                if (mediaID[i].id == id)
                 {
-                    mediaID.push( {'id' : id});
-                    continue;
+                  is_repeated = 1;
                 }
 
             }
         }
-        else
+
+        if (localStorage.getItem('imgLimit') == 'multiple')
         {
-            mediaID.push( {'id' : id});
+          if(is_repeated == 0)
+          {
+              mediaID.push( {'id' : id});
+          }
+          else{
+            var removeIndex = mediaID.map(function(item) { return item.id; }).indexOf(id);
+
+            // remove object
+            mediaID.splice(removeIndex, 1);
+          }
         }
-        
-        console.log(mediaID);
+        else{
+          mediaID[0] = {id : id};
+        }
+
+        var row = '<ul>';
+        for (var i = 0; i < mediaID.length; i++)
+        {
+            row += '<li><img src="' + $('#'+mediaID[i].id).attr('src') + '" width="100px" height="100px"></li>';
+        }
+
+        row += '</ul>'
+
+
+        $('#'+localStorage.getItem('btnId')).closest('.form-group').next('.showSelectedImages').html(row);
+        $('#'+localStorage.getItem('btnId')).siblings('input').val(JSON.stringify(mediaID));
+
+
 
     }
 });
@@ -748,7 +793,7 @@ app.controller('editroleCtrl', function($scope,$http,$location,$routeParams) {
             $location.path('/role')
         })
         //console.log(form)
-        
+
     }
 });
 
@@ -788,6 +833,9 @@ app.controller('categoryCtrl', function($scope,$http,$location,$route) {
             $route.reload()
         })
     }
+
+
+
 });
 
 app.controller('createcategoryCtrl', function($scope,$http,$location) {
@@ -816,6 +864,58 @@ app.controller('createcategoryCtrl', function($scope,$http,$location) {
             $location.path('/category')
         })
     }
+
+
+    $scope.submitForm = function() {
+        // console.log($scope.form);
+        var form = $scope.form;
+        // var form = {'role' : $scope.form, 'permission' : {}}
+        var other_fields = [];
+        for (var i = 0; i < $('.custom-field-container').length; i++) {
+          // console.log();
+
+          var container = $('.custom-field-container')[i];
+          var name = $(container).find('.custom-field-name').val();
+          var value = $(container).find('.custom-field-value').val();
+
+          other_fields.push({name: name, value: value});
+
+        }
+        form.other_fields = other_fields;
+        //form = JSON.stringify(form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "createcategory",
+            data: $scope.form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/category')
+        })
+    }
+
+    $scope.choices = [{id: 'choice1'}];
+
+    $scope.addNewChoice = function() {
+      var newItemNo = $scope.choices.length+1;
+      $scope.choices.push({'id' : 'choice' + newItemNo, 'name' : 'choice' + newItemNo});
+    };
+
+    $scope.removeNewChoice = function(index) {
+      var newItemNo = $scope.choices.length-1;
+      if ( newItemNo !== 0 ) {
+        // $scope.choices.pop();
+        $scope.choices.splice(index, 1);
+      }
+    };
+
+    $scope.showAddChoice = function(choice) {
+      return choice.id === $scope.choices[$scope.choices.length-1].id;
+    };
+
 });
 
 app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams) {
@@ -871,6 +971,8 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
             $location.path('/category')
         })
     }
+
+
 });
 
 app.controller('tagsCtrl', function($scope,$http,$location,$route) {
