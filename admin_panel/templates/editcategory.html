@@ -35,7 +35,7 @@
                                 </div>
 
                             </div>
-                            
+
                             <div class="form-group row">
 
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Sort<span class="required">*</span></label>
@@ -79,6 +79,90 @@
                                 <label for="description" class="col-sm-3 col-form-label">Description<span class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <textarea id="description" class="form-control" ng-model="form.description" required=""></textarea>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Featured Image<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('featuredImg', 'single')" id="featuredImg" >Browse</a>
+                                    <input type="hidden" ng-model="form.featured_img">
+                                </div>
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Gallery<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('gallery', 'multiple')" id="gallery">Browse</a>
+                                    <input type="hidden" ng-model="form.gallery">
+                                </div>
+
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Featured image<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('mobileFeaturedImg', 'single')" id="mobileFeaturedImg">Browse</a>
+                                    <input type="hidden" ng-model="form.mobile_featured_img">
+                                </div>
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Gallery<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('mobileGallery', 'multiple')" id="mobileGallery">Browse</a>
+                                    <input type="hidden" ng-model="form.mobile_gallery">
+                                </div>
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+
+                            <div class="form-group row custom-field-container" ng-repeat="choice in choices">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Add Other Fields<span class="required"></span></label>
+                                <div class="col-sm-9">
+
+                                  <label for="choice" ng-show="showChoiceLabel(choice)">Choices</label>
+                                  <!-- <a href="javascript:void(0)" class="btn btn-primary" ng-show="showAddChoice(choice)" ng-click="addNewChoice()"> <i class="fa fa-plus"></i> </a> -->
+                                  <a href="javascript:void(0)" class="btn btn-primary" ng-click="addNewChoice()"> <i class="fa fa-plus"></i> </a>
+                                  <a href="javascript:void(0)" class="btn btn-danger" ng-click="removeNewChoice(choice.id)"><i class="fa fa-trash"></i> </a>
+
+                                    <div class="col-md-3">
+                                      <input type="text" class="form-control custom-field-name" placeholder="Enter Name" value="{{ choice.name }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <input type="text" class="form-control custom-field-value" placeholder="Enter Value" value="{{ choice.value }}">
+                                    </div>
+
+
+
+
+                                    <!-- <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('mobileGallery', 'multiple')" id="mobileGallery">Browse</a> -->
+                                    <!-- <input type="hidden" ng-model="form.mobile_gallery"> -->
                                 </div>
 
                             </div>

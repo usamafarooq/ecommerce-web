@@ -21,14 +21,14 @@ exports.create = function(req, res) {
 	var firstKey = Object.keys(input)[0];
 	input = JSON.parse(firstKey);
 	console.log(input)
-	// const note = new db.category(input);
-  //   // Save Note in the database
-  //   note.save()
-  //   .then(data => {
-  //       res.json(data);
-  //   }).catch(err => {
-  //       res.json(err);
-  //   });
+	const note = new db.category(input);
+    // Save Note in the database
+    note.save()
+    .then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json(err);
+    });
 };
 
 exports.edit = function(req, res) {

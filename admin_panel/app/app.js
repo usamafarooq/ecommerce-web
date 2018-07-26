@@ -948,9 +948,47 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
         // $scope.form.password = form.password
         // $scope.form.role = form.role
         $scope.form = data.data
+        var fields = data.data.other_fields[0]
+        // for (var i = 0; i < fields.length; i++) {
+        //   fields[i] += {
+        //     id: 'choice'+i+1,
+        //     name: fields[i].name,
+        //     value: fields[i].value,
+        //   }
+        // }
+
+        _temp = [];
+        for (var i in fields) {
+          index = parseInt(i)+1;
+
+          _temp.push({
+            'id' : 'choice' + index,
+            'name': fields[i].name,
+            'value': fields[i].value,
+          });
+        }
+
+        $scope.choices = _temp
+        console.log($scope.choices);
     })
     $scope.submitForm = function() {
         //console.log($scope.form)
+        var form = $scope.form;
+        // var form = {'role' : $scope.form, 'permission' : {}}
+        var other_fields = {};
+        for (var i = 0; i < $('.custom-field-container').length; i++) {
+          // console.log();
+
+          var container = $('.custom-field-container')[i];
+          var name = $(container).find('.custom-field-name').val();
+          var value = $(container).find('.custom-field-value').val();
+          other_fields[i] = {name: name, value: value}
+          //other_fields.push({name: name, value: value});
+
+        }
+        // form.other_fields = other_fields;
+        // form = JSON.stringify(form)
+        console.log(form)
         $http({
             method: 'POST',
             //cache: false,
@@ -962,6 +1000,7 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
                 'parent_id' : $scope.form.parent_id,
                 'short_description' : $scope.form.short_description,
                 'description' : $scope.form.description,
+                'other_fields': other_fields
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -971,6 +1010,31 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
             $location.path('/category')
         })
     }
+
+
+    // $scope.choices = [{id: 'choice1'}];
+
+    $scope.addNewChoice = function() {
+      var newItemNo = $scope.choices.length+1;
+      $scope.choices.push({'id' : 'choice' + newItemNo});
+    };
+
+    $scope.removeNewChoice = function(index) {
+      var newItemNo = $scope.choices.length-1;
+      if ( newItemNo !== 0 ) {
+        // $scope.choices.pop();
+        $scope.choices.splice(index, 1);
+      }
+    };
+
+    $scope.showAddChoice = function(choice) {
+      return choice.id === $scope.choices[$scope.choices.length-1].id;
+    };
+
+
+    // $scope.editChoice = function(){
+    //
+    // }
 
 
 });
