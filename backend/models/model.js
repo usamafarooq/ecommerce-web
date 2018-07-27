@@ -89,7 +89,7 @@ var attributeterm = mongoose.Schema({
     name: String,
     url: { type: String, slug: "name", slug_padding_size: 4, unique: true },
     color: String,
-    image: String,
+    image: Array,
     text: String,
 }, {
     timestamps: true

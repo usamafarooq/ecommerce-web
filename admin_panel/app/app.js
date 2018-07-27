@@ -1305,10 +1305,10 @@ app.controller('configurecreateCtrl', function($scope,$http,$location,$route,$ro
         var images = {}
         if ($scope.attribute.type == 'image') {
             img = JSON.parse($('[name="image"]').val())
-            // for (var i = 0; i < img.length; i++) {
-            //     images[i] = img[i]
-            // }
-            // img = images
+            for (var i = 0; i < img.length; i++) {
+                images = img[i]
+            }
+            img = images
         }
         console.log(img)
         var form = {
@@ -1356,18 +1356,24 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
         }
     }).then(function(data, status, headers, config) {
         $scope.form = data.data
+        if ($scope.attribute.type == 'image') {
+            var imgId = $scope.form.image[0].id
+            var imgSrc = $('#'+imgId).attr('src')
+            $('.showSelectedImages').append('<ul><li><img src="'+imgSrc+'" width="100px" height="100px"></li></ul>')
+            console.log(imgId)
+        }
         //console.log($scope.attribute)
     })
     $scope.submitForm = function() {
         console.log($scope.form)
         var img = '';
-        var images = []
+        var images = {}
         if ($scope.attribute.type == 'image') {
             img = JSON.parse($('[name="image"]').val())
-            // for (var i = 0; i < img.length; i++) {
-            //     images[i] = img[i]
-            // }
-            // img = images
+            for (var i = 0; i < img.length; i++) {
+                images = img[i]
+            }
+            img = images
         }
         console.log(img)
         var form = {
