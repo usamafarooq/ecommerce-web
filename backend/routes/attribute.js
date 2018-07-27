@@ -66,3 +66,74 @@ exports.delete = function(req, res) {
         res.json(err);
     });
 };
+
+
+exports.configureattribute = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	var id = req.params.id;
+	db.attributeterm.find({attribute_id: id})
+    .then(attribute => {
+    	res.json(attribute);
+    }).catch(err => {
+        res.json(err);
+    });
+};
+
+exports.deleteconfigure = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	var id = req.params.id;
+	db.attributeterm.findByIdAndRemove(id)
+    .then(attribute => {
+        res.json(attribute);
+    }).catch(err => {
+        res.json(err);
+    });
+};
+
+exports.createconfigure = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	var input = req.body;
+	var firstKey = Object.keys(input)[0];
+	input = JSON.parse(firstKey);
+	//console.log(input)
+	const note = new db.attributeterm(input);
+    // Save Note in the database
+    note.save()
+    .then(data => {
+        res.json(data);
+    }).catch(err => {
+        res.json(err);
+    });
+};
+
+exports.editconfigure = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	var id = req.params.id;
+	db.attributeterm.findOne({_id: id}, function(err, document) {
+		res.json(document);
+	});
+};
+
+exports.updateconfigure = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	var id = req.params.id;
+	var input = req.body;
+	var firstKey = Object.keys(input)[0];
+	input = JSON.parse(firstKey);
+	db.attributeterm.findByIdAndUpdate(id, input, {new: true})
+    .then(note => {
+        res.json(note);
+    }).catch(err => {
+        res.json(err);
+    });
+};

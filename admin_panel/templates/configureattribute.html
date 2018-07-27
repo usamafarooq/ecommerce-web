@@ -21,7 +21,7 @@
 								<div class="panel-heading">
 									<div class="panel-title">
 										<h4>View Attributes</h4>
-										<a href="attribute/create"><button class="btn btn-info pull-right">Add Attribute</button></a>
+										<a href="attribute/configure/{{currentId}}/create"><button class="btn btn-info pull-right">Add Attribute</button></a>
 									</div>
 								</div>
 								<div class="panel-body">
@@ -32,7 +32,6 @@
 												<tr>
 													<th>Id</th>
 													<th>Name</th>
-													<th>Type</th>
 													<th>Action</th>
 												</tr>
 											</thead>
@@ -41,10 +40,8 @@
 												<tr ng-repeat="a in attribute">
 													<td>{{a._id}}</td>
 													<td>{{a.name}}</td>
-													<td>{{a.type}}</td>
 													<td>
-														<a href="attribute/configure/{{a._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">settings</i></button></a>
-														<a href="attribute/edit/{{a._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">mode_edit</i></button></a>
+														<a href="attribute/configure/{{currentId}}/edit/{{a._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">mode_edit</i></button></a>
 		                                                <a href="" data-ng-click="deleteattribute(a._id)"><button class="btn btn-danger btn-circle material-ripple"><i class="material-icons">delete_forever</i></button></a>
 	                                                </td>
 												</tr>

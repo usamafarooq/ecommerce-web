@@ -150,6 +150,17 @@ app.get('/deleteattribute/:id', attribute.delete);
 
 app.post('/updateattribute/:id', attribute.update);
 
+app.get('/configureattribute/:id', attribute.configureattribute);
+
+app.get('/deleteconfigureattribute/:id', attribute.deleteconfigure);
+
+app.post('/createconfigure', attribute.createconfigure);
+
+app.get('/editconfigure/:id', attribute.editconfigure);
+
+app.post('/updateconfigure/:id', attribute.updateconfigure);
+
+
 
 app.use(app.router);
 

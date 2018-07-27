@@ -16,7 +16,7 @@
         <!-- /. Content Header (Page header) -->
 
         <form method="post"  enctype="multipart/form-data" ng-submit="submitForm()">
-
+            <input type="hidden" name="" ng-model="form.attribute_id" value="{{attribute._id}}">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="panel panel-bd ">
@@ -36,27 +36,35 @@
 
                             </div>
                             
-                            <!-- <div class="form-group row">
+                            <div class="form-group row" ng-if="attribute.type == 'color'">
 
-                                <label for="example-text-input" class="col-sm-3 col-form-label">Url<span class="required">*</span></label>
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Color<span class="required">*</span></label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" name="password" ng-model="form.url" type="text" value=""  placeholder="">
+                                    <input class="form-control" name="color" ng-model="form.color" type="color" value=""  placeholder="" required="">
                                 </div>
 
-                            </div> -->
+                            </div>
+
+                            <div class="form-group row" ng-if="attribute.type == 'text'">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Text<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="text" ng-model="form.text" type="text" value=""  placeholder="" required="">
+                                </div>
+
+                            </div>
                             
-                            <div class="form-group row">
+                            <div class="form-group row" ng-if="attribute.type == 'image'">
 
-                                <label for="short_description" class="col-sm-3 col-form-label">Type<span class="required"></span></label>
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Featured Image<span class="required"></span></label>
                                 <div class="col-sm-9">
-                                    <!-- <input type="text" class="form-control" id="short_description" ng-model="form.short_description" > -->
-                                    <select class="form-control" ng-model="form.type" required="">
-                                        <option value="text">Text</option>
-                                        <option value="color">Color</option>
-                                        <option value="image">Image</option>
-                                    </select>
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('featuredImg', 'single')" id="featuredImg" >Browse</a>
+                                    <input type="hidden" ng-model="form.image" name="image">
                                 </div>
 
+                            </div>
+
+                            <div class="showSelectedImages">
                             </div>
 
                             

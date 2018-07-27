@@ -89,6 +89,19 @@ app.config(function($routeProvider, $locationProvider) {
         templateUrl : "templates/editattribute.html",
         controller: 'editattributeCtrl',
         cache: false
+    }).when("/attribute/configure/:name", {
+        templateUrl : "templates/configureattribute.html",
+        controller: 'configureattributeCtrl',
+        cache: false
+    }).when("/attribute/configure/:name/create", {
+        templateUrl : "templates/configurecreate.html",
+        controller: 'configurecreateCtrl',
+        cache: false
+    })
+    .when("/attribute/configure/:name/edit/:term", {
+        templateUrl : "templates/configureedit.html",
+        controller: 'configureeditCtrl',
+        cache: false
     });
     //$urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
@@ -1228,6 +1241,152 @@ app.controller('editattributeCtrl', function($scope,$http,$location,$routeParams
         }).then(function(data, status, headers, config) {
             console.log(data.data)
             $location.path('/attribute')
+        })
+    }
+});
+
+
+app.controller('configureattributeCtrl', function($scope,$http,$location,$route,$routeParams) {
+    var currentId = $routeParams.name;
+    $scope.attribute
+    $scope.currentId = currentId
+    $http({
+        method: 'GET',
+        url: api + "configureattribute/"+currentId,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.attribute = data.data
+        setTimeout(function(argument) {
+            $("#dataTableExample2").DataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    {extend: 'copy', className: 'btn-sm'},
+                    {extend: 'csv', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'excel', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'pdf', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'print', className: 'btn-sm'}
+                ],
+                "order": [[ 0, "desc" ]]
+            });
+        }, 300)
+    });
+    $scope.deleteattribute = function(id) {
+        $http({
+            method: 'GET',
+            url: api + "deleteconfigureattribute/"+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            $route.reload()
+        })
+    }
+});
+
+app.controller('configurecreateCtrl', function($scope,$http,$location,$route,$routeParams) {
+    $scope.attribute
+    var currentId = $routeParams.name;
+    $http({
+        method: 'GET',
+        url: api + "editattribute/"+currentId,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.attribute = data.data
+        //console.log($scope.attribute)
+    })
+    $scope.submitForm = function() {
+        console.log($scope.form)
+        var img = '';
+        var images = {}
+        if ($scope.attribute.type == 'image') {
+            img = JSON.parse($('[name="image"]').val())
+            // for (var i = 0; i < img.length; i++) {
+            //     images[i] = img[i]
+            // }
+            // img = images
+        }
+        console.log(img)
+        var form = {
+            name : $scope.form.name,
+            attribute_id : currentId,
+            image : img,
+            text : $('[name="text"]').val(),
+            color : $('[name="color"]').val(),
+        }
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "createconfigure",
+            data: form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/attribute/configure/'+currentId)
+        })
+    }
+});
+
+app.controller('configureeditCtrl', function($scope,$http,$location,$route,$routeParams) {
+    $scope.attribute
+    $scope.form
+    var currentId = $routeParams.name;
+    var termId = $routeParams.term;
+    $http({
+        method: 'GET',
+        url: api + "editattribute/"+currentId,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.attribute = data.data
+        //console.log($scope.attribute)
+    })
+    $http({
+        method: 'GET',
+        url: api + "editconfigure/"+termId,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.form = data.data
+        //console.log($scope.attribute)
+    })
+    $scope.submitForm = function() {
+        console.log($scope.form)
+        var img = '';
+        var images = []
+        if ($scope.attribute.type == 'image') {
+            img = JSON.parse($('[name="image"]').val())
+            // for (var i = 0; i < img.length; i++) {
+            //     images[i] = img[i]
+            // }
+            // img = images
+        }
+        console.log(img)
+        var form = {
+            name : $scope.form.name,
+            image : img,
+            text : $scope.form.text,
+            color : $scope.form.color,
+        }
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "updateconfigure/"+termId,
+            data: form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/attribute/configure/'+currentId)
         })
     }
 });

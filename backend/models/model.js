@@ -84,6 +84,17 @@ var attribute = mongoose.Schema({
     timestamps: true
 });
 
+var attributeterm = mongoose.Schema({
+    attribute_id: {type: mongoose.Schema.Types.ObjectId, ref: 'modules'},
+    name: String,
+    url: { type: String, slug: "name", slug_padding_size: 4, unique: true },
+    color: String,
+    image: String,
+    text: String,
+}, {
+    timestamps: true
+});
+
 var media = mongoose.Schema({
     originalname: String,
     destination: String,
@@ -101,6 +112,7 @@ var permission = mongoose.model('permission', permission);
 var category = mongoose.model('category', category);
 var tags = mongoose.model('tags', tags);
 var attribute = mongoose.model('attribute', attribute);
+var attributeterm = mongoose.model('attributeterm', attributeterm);
 var media = mongoose.model('media', media);
 module.exports = {
     User: User,
@@ -110,6 +122,7 @@ module.exports = {
     category:category,
     tags:tags,
     attribute:attribute,
+    attributeterm:attributeterm,
     media:media
 }
 //module.exports = mongoose.model(User: User, user_type:user_type);
