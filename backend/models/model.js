@@ -105,6 +105,32 @@ var media = mongoose.Schema({
     timestamps: true
 });
 
+var product = mongoose.Schema({
+    name: String,
+    url: { type: String, slug: "name", slug_padding_size: 4, unique: true },
+    short_description: String,
+    description: String,
+    category: [{type:mongoose.Schema.Types.ObjectId,ref: 'category'}],
+    tags: [{type:mongoose.Schema.Types.ObjectId,ref: 'tags'}],
+    regular_price: String,
+    sale_price: String,
+    sale_date: Date,
+    featured: String,
+    featured_date: Date,
+    deal: String,
+    deal_date: Date,
+    sku: String,
+    quantity: String,
+    stock: String,
+    featured_img: [{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
+    gallery: [{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
+    mobile_featured_img: [{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
+    mobile_gallery: [{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
+}, {
+    timestamps: true
+});
+
+
 var User = mongoose.model('User', User);
 var user_type = mongoose.model('user_type', user_type);
 var modules = mongoose.model('modules', modules);
@@ -114,6 +140,7 @@ var tags = mongoose.model('tags', tags);
 var attribute = mongoose.model('attribute', attribute);
 var attributeterm = mongoose.model('attributeterm', attributeterm);
 var media = mongoose.model('media', media);
+var product = mongoose.model('product', product);
 module.exports = {
     User: User,
     user_type:user_type,
@@ -123,6 +150,7 @@ module.exports = {
     tags:tags,
     attribute:attribute,
     attributeterm:attributeterm,
-    media:media
+    media:media,
+    product:product
 }
 //module.exports = mongoose.model(User: User, user_type:user_type);

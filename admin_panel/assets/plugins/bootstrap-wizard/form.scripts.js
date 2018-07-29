@@ -38,12 +38,12 @@ jQuery(document).ready(function () {
 
         // fields validation
         parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function () {
-            if ($(this).val() === "") {
-                $(this).addClass('input-error');
-                next_step = false;
-            } else {
-                $(this).removeClass('input-error');
-            }
+            // if ($(this).val() === "") {
+            //     $(this).addClass('input-error');
+            //     next_step = false;
+            // } else {
+            //     $(this).removeClass('input-error');
+            // }
         });
         // fields validation
 
@@ -84,14 +84,14 @@ jQuery(document).ready(function () {
     $('.f1').on('submit', function (e) {
 
         // fields validation
-        $(this).find('input[type="text"], input[type="password"], textarea').each(function () {
-            if ($(this).val() === "") {
-                e.preventDefault();
-                $(this).addClass('input-error');
-            } else {
-                $(this).removeClass('input-error');
-            }
-        });
+        // $(this).find('input[type="text"], input[type="password"], textarea').each(function () {
+        //     if ($(this).val() === "") {
+        //         e.preventDefault();
+        //         $(this).addClass('input-error');
+        //     } else {
+        //         $(this).removeClass('input-error');
+        //     }
+        // });
         // fields validation
 
     });

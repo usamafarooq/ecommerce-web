@@ -1,0 +1,272 @@
+<div class="content">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="header-icon">
+                <i class="pe-7s-note2"></i>
+            </div>
+            <div class="header-title">
+                <h1>Add Product</h1>
+                <small></small>
+                <ol class="breadcrumb">
+                    <li><a href="/home"><i class="pe-7s-home"></i> Home</a></li>
+                    <li class="active">Add Product</li>
+                </ol>
+            </div>
+        </div>
+        <!-- /. Content Header (Page header) -->
+
+        <form method="post"  enctype="multipart/form-data" ng-submit="submitForm()">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-bd ">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <h4>Add Product</h4>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Name<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" name="name" ng-model="form.name" type="text" value=""  placeholder="" >
+                                </div>
+
+                            </div>
+                            
+                            <div class="form-group row">
+
+                                <label for="short_description" class="col-sm-3 col-form-label">Short Description<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="short_description" ng-model="form.short_description" >
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Description<span class="required">*</span></label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" ng-model="form.description" > </textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Featured Image<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('featuredImg', 'single')" id="featuredImg" >Browse</a>
+                                    <input type="hidden" ng-model="form.featured_img">
+                                </div>
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Gallery<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('gallery', 'multiple')" id="gallery">Browse</a>
+                                    <input type="hidden" ng-model="form.gallery">
+                                </div>
+
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Featured image<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('mobileFeaturedImg', 'single')" id="mobileFeaturedImg">Browse</a>
+                                    <input type="hidden" ng-model="form.mobile_featured_img">
+                                </div>
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+
+                            <div class="form-group row">
+
+                                <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Gallery<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('mobileGallery', 'multiple')" id="mobileGallery">Browse</a>
+                                    <input type="hidden" ng-model="form.mobile_gallery">
+                                </div>
+
+                            </div>
+
+                            <div class="showSelectedImages">
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="short_description" class="col-sm-3 col-form-label">Category<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="form.category" multiple="">
+                                        <option ng-repeat="c in category" value="{{c._id}}">{{c.name}}</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" id="short_description" ng-model="form.category" > -->
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="short_description" class="col-sm-3 col-form-label">Tags<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="form.tags" multiple="">
+                                        <option ng-repeat="c in tags" value="{{c._id}}">{{c.name}}</option>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" id="short_description" ng-model="form.category" > -->
+                                </div>
+
+                            </div>
+
+                            <!-- <div class="form-group row">
+
+                                <label for="short_description" class="col-sm-3 col-form-label">Virtual<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" class="view" data-toggle="toggle" ng-model="form.virtual" name="virtual" value="1" data-on="Yes" data-off="No">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+
+                                <label for="short_description" class="col-sm-3 col-form-label">Download<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" class="view" data-toggle="toggle" ng-model="form.download" name="download" value="1" data-on="Yes" data-off="No">
+                                </div>
+
+                            </div> -->
+
+
+                            <div class="form-group row">
+
+                                <label for="short_description" class="col-sm-3 col-form-label">Extra<span class="required"></span></label>
+                                <div class="col-sm-9">
+                                    <div class="f1">
+                                        <div class="f1-steps">
+                                            <div class="f1-progress">
+                                                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66%;"></div>
+                                            </div>
+                                            <div class="f1-step active">
+                                                <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                                                <p>General</p>
+                                            </div>
+                                            <div class="f1-step">
+                                                <div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                                                <p>Inventory</p>
+                                            </div>
+                                            <div class="f1-step">
+                                                <div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
+                                                <p>Attributes</p>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-first-name">Regular Price</label>
+                                                <input type="text" ng-model="form.regular_price" placeholder="Regular Price" class="form-control" id="f1-first-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-last-name">Sale Price</label>
+                                                <input type="text" ng-model="form.sale_price"  placeholder="Sale Price" class="form-control" id="f1-last-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-last-name">Sale Date</label>
+                                                <input type="date" ng-model="form.sale_date"  placeholder="Sale Date" class="form-control" id="f1-last-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-last-name">Featured</label>
+                                                <input type="checkbox" class="view" data-toggle="toggle" ng-model="form.featured" name="featured" value="1" data-on="Yes" data-off="No">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-last-name">Featured Expire</label>
+                                                <input type="date" ng-model="form.featured_expire"  placeholder="Featured Expire" class="form-control" id="f1-last-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-last-name">Deal of The Day</label>
+                                                <input type="checkbox" class="view" data-toggle="toggle" ng-model="form.deal" name="featured" value="1" data-on="Yes" data-off="No">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-last-name">Deal Expire</label>
+                                                <input type="date" ng-model="form.deal_expire"  placeholder="Deal Expire" class="form-control" id="f1-last-name">
+                                            </div>
+                                            
+                                            <div class="f1-buttons">
+                                                <button type="button" class="btn btn-success btn-next">Next</button>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-email">SKU</label>
+                                                <input type="text" ng-model="form.sku" name="f1-email" placeholder="SKU" class="form-control" id="f1-email">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-password">Stock quantity</label>
+                                                <input type="number" ng-model="form.quantity" name="f1-password" placeholder="Stock quantity" class="form-control" id="f1-password">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-repeat-password">Stock</label>
+                                                <select class="form-control" ng-model="form.stock">
+                                                    <option value="in_stock">In Stock</option>
+                                                    <option value="out_stock">Out Stock</option>
+                                                </select>
+                                            </div>
+                                            <div class="f1-buttons">
+                                                <button type="button" class="btn btn-previous">Previous</button>
+                                                <button type="button" class="btn btn-success btn-next">Next</button>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <h4>Social media profiles:</h4>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-facebook">Facebook</label>
+                                                <input type="text" name="f1-facebook" placeholder="Facebook..." class="form-control" id="f1-facebook">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-twitter">Twitter</label>
+                                                <input type="text" name="f1-twitter" placeholder="Twitter..." class="form-control" id="f1-twitter">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="f1-google-plus">Google plus</label>
+                                                <input type="text" name="f1-google-plus" placeholder="Google plus..." class="form-control" id="f1-google-plus">
+                                            </div>
+                                            <div class="f1-buttons">
+                                                <button type="button" class="btn btn-previous">Previous</button>
+                                            </div>
+                                        </fieldset>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+
+                                    
+                            <div class="form-group row">
+
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary pull-right">Add</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
