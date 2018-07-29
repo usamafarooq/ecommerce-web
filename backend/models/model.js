@@ -85,11 +85,11 @@ var attribute = mongoose.Schema({
 });
 
 var attributeterm = mongoose.Schema({
-    attribute_id: {type: mongoose.Schema.Types.ObjectId, ref: 'modules'},
+    attribute_id: {type: mongoose.Schema.Types.ObjectId, ref: 'attribute'},
     name: String,
     url: { type: String, slug: "name", slug_padding_size: 4, unique: true },
     color: String,
-    image: Array,
+    image: [{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
     text: String,
 }, {
     timestamps: true

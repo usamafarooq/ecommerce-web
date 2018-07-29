@@ -1306,7 +1306,7 @@ app.controller('configurecreateCtrl', function($scope,$http,$location,$route,$ro
         if ($scope.attribute.type == 'image') {
             img = JSON.parse($('[name="image"]').val())
             for (var i = 0; i < img.length; i++) {
-                images = img[i]
+                images[i] = img[i]
             }
             img = images
         }
@@ -1357,7 +1357,7 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
     }).then(function(data, status, headers, config) {
         $scope.form = data.data
         if ($scope.attribute.type == 'image') {
-            var imgId = $scope.form.image[0].id
+            var imgId = $scope.form.image[0]
             var imgSrc = $('#'+imgId).attr('src')
             $('.showSelectedImages').append('<ul><li><img src="'+imgSrc+'" width="100px" height="100px"></li></ul>')
             console.log(imgId)
@@ -1371,7 +1371,7 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
         if ($scope.attribute.type == 'image') {
             img = JSON.parse($('[name="image"]').val())
             for (var i = 0; i < img.length; i++) {
-                images = img[i]
+                images[i] = img[i]
             }
             img = images
         }

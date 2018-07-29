@@ -101,7 +101,13 @@ exports.createconfigure = function(req, res) {
 	var input = req.body;
 	var firstKey = Object.keys(input)[0];
 	input = JSON.parse(firstKey);
-	//console.log(input)
+	console.log(input)
+	var img = []
+	for (var i = 0; i < Object.keys(input.image).length; i++) {
+		img.push(input.image[i].id)
+	}
+	input.image = img
+	console.log(input)
 	const note = new db.attributeterm(input);
     // Save Note in the database
     note.save()
@@ -117,6 +123,9 @@ exports.editconfigure = function(req, res) {
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	var id = req.params.id;
+	// db.attributeterm.find({_id: id}).populate('image').exec(function (err, result) {
+	// 	res.json(result);
+ //    });
 	db.attributeterm.findOne({_id: id}, function(err, document) {
 		res.json(document);
 	});
@@ -130,6 +139,13 @@ exports.updateconfigure = function(req, res) {
 	var input = req.body;
 	var firstKey = Object.keys(input)[0];
 	input = JSON.parse(firstKey);
+	console.log(input)
+	var img = []
+	for (var i = 0; i < Object.keys(input.image).length; i++) {
+		img.push(input.image[i].id)
+	}
+	input.image = img
+	console.log(input)
 	db.attributeterm.findByIdAndUpdate(id, input, {new: true})
     .then(note => {
         res.json(note);
