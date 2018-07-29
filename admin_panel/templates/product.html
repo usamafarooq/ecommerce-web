@@ -34,22 +34,24 @@
 													<th>SKU</th>
 													<th>Stock</th>
 													<th>Price</th>
-													<th>Categories</th>
-													<th>Tags</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 										    <tbody>
 										    	
 												<tr ng-repeat="c in product">
-													<td>{{c._id}}</td>
 													<td>{{c.name}}</td>
-													<td><span ng-if="c.parent_id && c.parent_id != null">{{c.parent_id.name}}</span></td>
-													<td>{{c._id}}</td>
-													<td>{{c.name}}</td>
-													<td><span ng-if="c.parent_id && c.parent_id != null">{{c.parent_id.name}}</span></td>
+													<td>{{c.sku}}</td>
+													<td>{{c.quantity}}</td>
 													<td>
-														<a href="Product/edit/{{c._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">mode_edit</i></button></a>
+														<span ng-if="!c.sale_price">{{c.regular_price}}</span>
+														<span ng-if="c.sale_price && c.sale_price != null">
+															<ins>{{c.sale_price}}</ins>
+															<del>{{c.regular_price}}</del>
+														</span>
+													</td>
+													<td>
+														<a href="product/edit/{{c._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">mode_edit</i></button></a>
 		                                                <a href="" data-ng-click="deleteproduct(c._id)"><button class="btn btn-danger btn-circle material-ripple"><i class="material-icons">delete_forever</i></button></a>
 	                                                </td>
 												</tr>

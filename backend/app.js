@@ -161,7 +161,11 @@ app.get('/editconfigure/:id', attribute.editconfigure);
 
 app.post('/updateconfigure/:id', attribute.updateconfigure);
 
+app.get('/product', product.product);
+
 app.post('/createproduct', product.create);
+
+app.get('/deleteproduct/:id', product.delete);
 
 
 app.use(app.router);

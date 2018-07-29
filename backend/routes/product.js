@@ -1,4 +1,16 @@
 var db = require('../models/model.js');
+exports.product = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	db.product.find()
+    .then(product => {
+    	res.json(product);
+    }).catch(err => {
+        res.json(err);
+    });
+};
+
 exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -47,6 +59,20 @@ exports.create = function(req, res) {
     note.save()
     .then(data => {
         res.json(data);
+    }).catch(err => {
+        res.json(err);
+    });
+};
+
+
+exports.delete = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	var id = req.params.id;
+	db.product.findByIdAndRemove(id)
+    .then(product => {
+        res.json(product);
     }).catch(err => {
         res.json(err);
     });

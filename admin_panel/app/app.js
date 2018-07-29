@@ -1410,15 +1410,15 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
 });
 
 app.controller('productCtrl', function($scope,$http,$location,$route) {
-    $scope.attribute
+    $scope.product
     $http({
         method: 'GET',
-        url: api + "attribute",
+        url: api + "product",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(function(data, status, headers, config) {
-        $scope.attribute = data.data
+        $scope.product = data.data
         setTimeout(function(argument) {
             $("#dataTableExample2").DataTable({
                 dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
@@ -1437,7 +1437,7 @@ app.controller('productCtrl', function($scope,$http,$location,$route) {
     $scope.deleteattribute = function(id) {
         $http({
             method: 'GET',
-            url: api + "deleteattribute/"+id,
+            url: api + "deleteproduct/"+id,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
