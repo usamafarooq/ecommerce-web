@@ -1583,6 +1583,9 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
             img = JSON.parse($('[name="image"]').val())
             for (var i = 0; i < img.length; i++) {
                 images[i] = img[i]
+                if (img[i].id) {
+                    images[i] = img[i].id
+                }
             }
             img = images
         }
