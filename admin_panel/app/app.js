@@ -894,6 +894,48 @@ app.controller('createcategoryCtrl', function($scope,$http,$location) {
           //other_fields.push({name: name, value: value});
 
         }
+
+
+        var featured_img = '';
+        var images = {}
+
+        featured_img = JSON.parse($('input[ng-model="form.featured_img"]').val())
+        for (var i = 0; i < featured_img.length; i++) {
+            images[i] = featured_img[i]
+        }
+        form.featured_img = images;
+
+
+        var gallery = '';
+        var images = {}
+
+        gallery = JSON.parse($('input[ng-model="form.gallery"]').val())
+        for (var i = 0; i < gallery.length; i++) {
+            images[i] = gallery[i]
+        }
+        form.gallery = images;
+
+
+        var mobile_featured_img = '';
+        var images = {}
+
+        mobile_featured_img = JSON.parse($('input[ng-model="form.mobile_featured_img"]').val())
+        for (var i = 0; i < mobile_featured_img.length; i++) {
+            images[i] = mobile_featured_img[i]
+        }
+        form.mobile_featured_img = images;
+
+
+        var mobile_gallery = '';
+        var images = {}
+
+        mobile_gallery = JSON.parse($('input[ng-model="form.mobile_gallery"]').val())
+        for (var i = 0; i < mobile_gallery.length; i++) {
+            images[i] = mobile_gallery[i]
+        }
+        form.mobile_gallery = images;
+
+
         form.other_fields = other_fields;
         form = JSON.stringify(form)
         $http({
@@ -981,7 +1023,118 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
           });
         }
 
-        $scope.choices = _temp
+        $scope.choices = _temp;
+
+        $scope.mobile_gallery
+        if (data.data.featured_img !=  '' ) {
+          row = '';
+
+          for (var key in data.data.featured_img[0]) {
+
+              if (!data.data.featured_img[0].hasOwnProperty(key)) continue;
+
+              var obj = data.data.featured_img[0][key];
+              for (var prop in obj) {
+                  // skip loop if the property is from prototype
+                  // if(!obj.hasOwnProperty(prop)) continue;
+
+
+                  var imgId = data.data.featured_img[0][i].id
+                  var imgSrc = $('#'+imgId).attr('src')
+
+                  row += '<li><img src="'+imgSrc+'" width="100px" height="100px"></li>'
+              }
+          }
+
+          $('input[ng-model="form.featured_img"]').closest('.form-group').next('.showSelectedImages').append('<ul>'+row+'</ul>')
+        }
+
+
+        if (data.data.gallery !=  '' ) {
+
+          row = '';
+
+          for (var key in data.data.gallery[0]) {
+
+              if (!data.data.gallery[0].hasOwnProperty(key)) continue;
+
+              var obj = data.data.gallery[0][key];
+              for (var prop in obj) {
+                  // skip loop if the property is from prototype
+                  // if(!obj.hasOwnProperty(prop)) continue;
+
+
+                  var imgId = data.data.gallery[0][i].id
+                  var imgSrc = $('#'+imgId).attr('src')
+
+                  row += '<li><img src="'+imgSrc+'" width="100px" height="100px"></li>'
+              }
+          }
+
+          $('input[ng-model="form.gallery"]').closest('.form-group').next('.showSelectedImages').append('<ul>'+row+'</ul>')
+
+        }
+
+
+        if (data.data.mobile_featured_img !=  '' ) {
+
+          row = '';
+
+          for (var key in data.data.mobile_featured_img[0]) {
+
+              if (!data.data.mobile_featured_img[0].hasOwnProperty(key)) continue;
+
+              var obj = data.data.mobile_featured_img[0][key];
+              for (var prop in obj) {
+                  // skip loop if the property is from prototype
+                  // if(!obj.hasOwnProperty(prop)) continue;
+
+
+                  var imgId = data.data.mobile_featured_img[0][i].id
+                  var imgSrc = $('#'+imgId).attr('src')
+
+                  row += '<li><img src="'+imgSrc+'" width="100px" height="100px"></li>'
+              }
+          }
+
+          $('input[ng-model="form.mobile_featured_img"]').closest('.form-group').next('.showSelectedImages').append('<ul>'+row+'</ul>')
+
+
+        }
+
+
+        if (data.data.mobile_gallery !=  '' ) {
+
+          row = '';
+
+          for (var key in data.data.mobile_gallery[0]) {
+
+              if (!data.data.mobile_gallery[0].hasOwnProperty(key)) continue;
+
+              var obj = data.data.mobile_gallery[0][key];
+              for (var prop in obj) {
+                  // skip loop if the property is from prototype
+                  // if(!obj.hasOwnProperty(prop)) continue;
+
+
+                  var imgId = data.data.mobile_gallery[0][i].id
+                  var imgSrc = $('#'+imgId).attr('src')
+
+                  row += '<li><img src="'+imgSrc+'" width="100px" height="100px"></li>'
+              }
+          }
+
+          $('input[ng-model="form.mobile_gallery"]').closest('.form-group').next('.showSelectedImages').append('<ul>'+row+'</ul>')
+
+
+        }
+
+
+            // var imgId = $scope.form.image[0].id
+            // var imgSrc = $('#'+imgId).attr('src')
+            // $('.showSelectedImages').append('<ul><li><img src="'+imgSrc+'" width="100px" height="100px"></li></ul>')
+            // console.log(imgId)
+
         console.log($scope.choices);
     })
     $scope.submitForm = function() {
@@ -1001,6 +1154,48 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
         }
         // form.other_fields = other_fields;
         // form = JSON.stringify(form)
+
+        var featured_img = '';
+        var images = {}
+
+        featured_img = JSON.parse($('input[ng-model="form.featured_img"]').val())
+        for (var i = 0; i < featured_img.length; i++) {
+            images[i] = featured_img[i]
+        }
+        featured_img = images
+
+
+        var gallery = '';
+        var images = {}
+
+        gallery = JSON.parse($('input[ng-model="form.gallery"]').val())
+        for (var i = 0; i < gallery.length; i++) {
+            images[i] = gallery[i]
+        }
+        gallery = images;
+
+
+        var mobile_featured_img = '';
+        var images = {}
+
+        mobile_featured_img = JSON.parse($('input[ng-model="form.mobile_featured_img"]').val())
+        for (var i = 0; i < mobile_featured_img.length; i++) {
+            images[i] = mobile_featured_img[i]
+        }
+        mobile_featured_img = images;
+
+
+        var mobile_gallery = '';
+        var images = {}
+
+        mobile_gallery = JSON.parse($('input[ng-model="form.mobile_gallery"]').val())
+        for (var i = 0; i < mobile_gallery.length; i++) {
+            images[i] = mobile_gallery[i]
+        }
+        mobile_gallery = images;
+
+
+
         console.log(form)
         $http({
             method: 'POST',
@@ -1013,7 +1208,11 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
                 'parent_id' : $scope.form.parent_id,
                 'short_description' : $scope.form.short_description,
                 'description' : $scope.form.description,
-                'other_fields': other_fields
+                'other_fields': other_fields,
+                            'featured_img':featured_img,
+                            'gallery':gallery,
+                            'mobile_featured_img':mobile_featured_img,
+                            'mobile_gallery':mobile_gallery,
             },
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

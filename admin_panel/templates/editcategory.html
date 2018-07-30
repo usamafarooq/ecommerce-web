@@ -89,7 +89,7 @@
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Featured Image<span class="required"></span></label>
                                 <div class="col-sm-9">
                                     <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('featuredImg', 'single')" id="featuredImg" >Browse</a>
-                                    <input type="hidden" ng-model="form.featured_img">
+                                    <input type="hidden" ng-model="form.featured_img" value="{{form.featured_img}}" >
                                 </div>
 
                             </div>
@@ -103,7 +103,7 @@
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Gallery<span class="required"></span></label>
                                 <div class="col-sm-9">
                                     <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('gallery', 'multiple')" id="gallery">Browse</a>
-                                    <input type="hidden" ng-model="form.gallery">
+                                    <input type="hidden" ng-model="form.gallery" value="{{form.gallery}}">
                                 </div>
 
 
@@ -118,12 +118,15 @@
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Featured image<span class="required"></span></label>
                                 <div class="col-sm-9">
                                     <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('mobileFeaturedImg', 'single')" id="mobileFeaturedImg">Browse</a>
-                                    <input type="hidden" ng-model="form.mobile_featured_img">
+                                    <input type="hidden" ng-model="form.mobile_featured_img" value="{{form.mobile_featured_img}}">
                                 </div>
 
                             </div>
 
                             <div class="showSelectedImages">
+                              <!-- <ul ng-repeat="form.mobile_featured_img">
+                                <li>1</li>
+                              </ul> -->
                             </div>
 
 
@@ -132,7 +135,7 @@
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Mobile Gallery<span class="required"></span></label>
                                 <div class="col-sm-9">
                                     <a href="javascript:void(0)" class="btn btn-info btn-sm selectMedia" data-toggle="modal" data-target="#media" ng-click="storeLocalStorage('mobileGallery', 'multiple')" id="mobileGallery">Browse</a>
-                                    <input type="hidden" ng-model="form.mobile_gallery">
+                                    <input type="hidden" ng-model="form.mobile_gallery" value="{{form.mobile_gallery}}">
                                 </div>
 
                             </div>
@@ -147,8 +150,8 @@
                                 <div class="col-sm-9">
 
                                   <label for="choice" ng-show="showChoiceLabel(choice)">Choices</label>
-                                  <!-- <a href="javascript:void(0)" class="btn btn-primary" ng-show="showAddChoice(choice)" ng-click="addNewChoice()"> <i class="fa fa-plus"></i> </a> -->
-                                  <a href="javascript:void(0)" class="btn btn-primary" ng-click="addNewChoice()"> <i class="fa fa-plus"></i> </a>
+                                  <a href="javascript:void(0)" class="btn btn-primary" ng-show="showAddChoice(choice)" ng-click="addNewChoice()"> <i class="fa fa-plus"></i> </a>
+                                  <!-- <a href="javascript:void(0)" class="btn btn-primary" ng-click="addNewChoice()"> <i class="fa fa-plus"></i> </a> -->
                                   <a href="javascript:void(0)" class="btn btn-danger" ng-click="removeNewChoice(choice.id)"><i class="fa fa-trash"></i> </a>
 
                                     <div class="col-md-3">
