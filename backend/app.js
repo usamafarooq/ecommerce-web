@@ -69,6 +69,7 @@ var category = require('./routes/category');
 var tags = require('./routes/tags');
 var attribute = require('./routes/attribute');
 var media = require('./routes/media');
+var product = require('./routes/product');
 
 
 app.get("/", function (req, res) {
@@ -160,6 +161,11 @@ app.get('/editconfigure/:id', attribute.editconfigure);
 
 app.post('/updateconfigure/:id', attribute.updateconfigure);
 
+app.get('/product', product.product);
+
+app.post('/createproduct', product.create);
+
+app.get('/deleteproduct/:id', product.delete);
 
 
 app.use(app.router);

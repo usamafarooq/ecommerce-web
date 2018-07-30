@@ -3,6 +3,10 @@ var site_url = 'http://localhost/ecommerce-web/';
 var admin_url = 'http://localhost/ecommerce-web/admin_panel';
 var media = 'http://localhost/ecommerce-web/uploads';
 var app = angular.module("ecommerceApp", ["ngRoute"]);
+function reload_js(src) {
+    $('script[src="' + src + '"]').remove();
+    $('<script>').attr('src', src).appendTo('head');
+}
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
     .when("/", {
@@ -101,6 +105,14 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/attribute/configure/:name/edit/:term", {
         templateUrl : "templates/configureedit.html",
         controller: 'configureeditCtrl',
+        cache: false
+    }).when("/product", {
+        templateUrl : "templates/product.html",
+        controller: 'productCtrl',
+        cache: false
+    }).when("/product/create", {
+        templateUrl : "templates/createproduct.html",
+        controller: 'createproductCtrl',
         cache: false
     });
     //$urlRouterProvider.otherwise('/');
@@ -1505,7 +1517,7 @@ app.controller('configurecreateCtrl', function($scope,$http,$location,$route,$ro
         if ($scope.attribute.type == 'image') {
             img = JSON.parse($('[name="image"]').val())
             for (var i = 0; i < img.length; i++) {
-                images = img[i]
+                images[i] = img[i]
             }
             img = images
         }
@@ -1556,7 +1568,7 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
     }).then(function(data, status, headers, config) {
         $scope.form = data.data
         if ($scope.attribute.type == 'image') {
-            var imgId = $scope.form.image[0].id
+            var imgId = $scope.form.image[0]
             var imgSrc = $('#'+imgId).attr('src')
             $('.showSelectedImages').append('<ul><li><img src="'+imgSrc+'" width="100px" height="100px"></li></ul>')
             console.log(imgId)
@@ -1570,7 +1582,7 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
         if ($scope.attribute.type == 'image') {
             img = JSON.parse($('[name="image"]').val())
             for (var i = 0; i < img.length; i++) {
-                images = img[i]
+                images[i] = img[i]
             }
             img = images
         }
@@ -1595,3 +1607,159 @@ app.controller('configureeditCtrl', function($scope,$http,$location,$route,$rout
         })
     }
 });
+
+
+app.controller('productCtrl', function($scope,$http,$location,$route) {
+    $scope.product
+    $http({
+        method: 'GET',
+        url: api + "product",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.product = data.data
+        setTimeout(function(argument) {
+            $("#dataTableExample2").DataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                buttons: [
+                    {extend: 'copy', className: 'btn-sm'},
+                    {extend: 'csv', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'excel', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'pdf', title: 'ExampleFile', className: 'btn-sm'},
+                    {extend: 'print', className: 'btn-sm'}
+                ],
+                "order": [[ 0, "desc" ]]
+            });
+        }, 300)
+    });
+    $scope.deleteattribute = function(id) {
+        $http({
+            method: 'GET',
+            url: api + "deleteproduct/"+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            $route.reload()
+        })
+    }
+});
+
+app.controller('createproductCtrl', function($scope,$http,$location) {
+    $scope.category
+    $http({
+        method: 'GET',
+        url: api + "category",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.category = data.data
+    });
+    $scope.tags
+    $http({
+        method: 'GET',
+        url: api + "tags",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.tags = data.data
+    });
+    setTimeout(function() {
+        $('input[data-toggle="toggle"]').bootstrapToggle({
+            on: 'Yes',
+            off: 'No'
+        });
+        reload_js('assets/plugins/bootstrap-wizard/jquery.backstretch.min.js');
+        reload_js('assets/plugins/bootstrap-wizard/form.scripts.js');
+    })
+    $scope.submitForm = function() {
+        var form = $scope.form
+        var img = '';
+        var images = {}
+        img = $('[ng-model="form.featured_img"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.featured_img"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i].id
+            }
+            img = images
+            form.featured_img = img
+        }
+
+        var img = '';
+        var images = {}
+        img = $('[ng-model="form.gallery"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.gallery"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i].id
+            }
+            img = images
+            form.gallery = img
+        }
+
+        var img = '';
+        var images = {}
+        img = $('[ng-model="form.mobile_featured_img"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.mobile_featured_img"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i].id
+            }
+            img = images
+            form.mobile_featured_img = img
+        }
+
+        var img = '';
+        var images = {}
+        img = $('[ng-model="form.mobile_gallery"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.mobile_gallery"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i].id
+            }
+            img = images
+            form.mobile_gallery = img
+        }
+
+        var array = {}
+        var cat = form.category
+        for (var i = 0; i < cat.length; i++) {
+            array[i] = cat[i]
+        }
+        cat = array
+        form.category = cat
+
+        var array = {}
+        var tags = form.tags
+        for (var i = 0; i < tags.length; i++) {
+            array[i] = tags[i]
+        }
+        tags = array
+        if($('[ng-model="form.featured"]:checked')){
+            form.featured = 1
+        }
+        if($('[ng-model="form.deal"]:checked')){
+            form.deal = 1
+        }
+        form.tags = tags
+
+        console.log(form)
+        $http({
+            method: 'POST',
+            //cache: false,
+            url: api + "createproduct",
+            data: form,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(function(data, status, headers, config) {
+            console.log(data.data)
+            $location.path('/product')
+        })
+    }
+})

@@ -1,0 +1,67 @@
+<div class="content">
+					<!-- Content Header (Page header) -->
+					<div class="content-header">
+						<div class="header-icon">
+							<i class="pe-7s-box1"></i>
+						</div>
+						<div class="header-title">
+							<h1>View Product</h1>
+							<small> </small>
+							<ol class="breadcrumb">
+								<li><a href="home"><i class="pe-7s-home"></i> Home</a></li>
+
+								<li class="active">View Product</li>
+							</ol>
+						</div>
+					</div> <!-- /. Content Header (Page header) -->
+
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="panel panel-bd">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<h4>View Product</h4>
+										<a href="product/create"><button class="btn btn-info pull-right">Add Product</button></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									
+									<div class="table-responsive">
+										<table id="dataTableExample2" class="table table-bordered table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>SKU</th>
+													<th>Stock</th>
+													<th>Price</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+										    <tbody>
+										    	
+												<tr ng-repeat="c in product">
+													<td>{{c.name}}</td>
+													<td>{{c.sku}}</td>
+													<td>{{c.quantity}}</td>
+													<td>
+														<span ng-if="!c.sale_price">{{c.regular_price}}</span>
+														<span ng-if="c.sale_price && c.sale_price != null">
+															<ins>{{c.sale_price}}</ins>
+															<del>{{c.regular_price}}</del>
+														</span>
+													</td>
+													<td>
+														<a href="product/edit/{{c._id}}"><button class="btn btn-info btn-circle material-ripple"><i class="material-icons">mode_edit</i></button></a>
+		                                                <a href="" data-ng-click="deleteproduct(c._id)"><button class="btn btn-danger btn-circle material-ripple"><i class="material-icons">delete_forever</i></button></a>
+	                                                </td>
+												</tr>
+											</tbody>
+										</table>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="height: 450px;"></div>
+				</div> 
