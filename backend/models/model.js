@@ -15,7 +15,8 @@ var User = mongoose.Schema({
         index: true
     },
     password: String,
-    role: String
+    phone: String,
+    role: {type: mongoose.Schema.Types.ObjectId, ref: 'user_type'}
 }, {
     timestamps: true
 });
