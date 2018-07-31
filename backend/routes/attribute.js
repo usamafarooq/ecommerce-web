@@ -142,7 +142,13 @@ exports.updateconfigure = function(req, res) {
 	console.log(input)
 	var img = []
 	for (var i = 0; i < Object.keys(input.image).length; i++) {
-		img.push(input.image[i].id)
+		if(input.image[i].id){
+			img.push(input.image[i].id)
+		}
+		else{
+			img.push(input.image[i])
+		}
+
 	}
 	input.image = img
 	console.log(input)
