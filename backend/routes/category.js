@@ -75,6 +75,33 @@ exports.update = function(req, res) {
 	var input = req.body;
 	var firstKey = Object.keys(input)[0];
 	input = JSON.parse(firstKey);
+
+	var featured_img = []
+	for (var i = 0; i < Object.keys(input.featured_img).length; i++) {
+		featured_img.push(input.featured_img[i])
+	}
+	input.featured_img = featured_img
+
+	var gallery = []
+	for (var i = 0; i < Object.keys(input.gallery).length; i++) {
+		gallery.push(input.gallery[i])
+	}
+	input.gallery = gallery
+
+	var mobile_featured_img = []
+	for (var i = 0; i < Object.keys(input.mobile_featured_img).length; i++) {
+		mobile_featured_img.push(input.mobile_featured_img[i])
+	}
+	input.mobile_featured_img = mobile_featured_img
+
+	var mobile_gallery = []
+	for (var i = 0; i < Object.keys(input.mobile_gallery).length; i++) {
+		mobile_gallery.push(input.mobile_gallery[i])
+	}
+	input.mobile_gallery = mobile_gallery
+
+	console.log(input)
+	
 	db.category.findByIdAndUpdate(id, input, {new: true})
     .then(note => {
         res.json(note);
