@@ -21,6 +21,32 @@ exports.create = function(req, res) {
 	var firstKey = Object.keys(input)[0];
 	input = JSON.parse(firstKey);
 	console.log(input)
+
+	var featured_img = []
+	for (var i = 0; i < Object.keys(input.featured_img).length; i++) {
+		featured_img.push(input.featured_img[i])
+	}
+	input.featured_img = featured_img
+
+	var gallery = []
+	for (var i = 0; i < Object.keys(input.gallery).length; i++) {
+		gallery.push(input.gallery[i])
+	}
+	input.gallery = gallery
+
+	var mobile_featured_img = []
+	for (var i = 0; i < Object.keys(input.mobile_featured_img).length; i++) {
+		mobile_featured_img.push(input.mobile_featured_img[i])
+	}
+	input.mobile_featured_img = mobile_featured_img
+
+	var mobile_gallery = []
+	for (var i = 0; i < Object.keys(input.mobile_gallery).length; i++) {
+		mobile_gallery.push(input.mobile_gallery[i])
+	}
+	input.mobile_gallery = mobile_gallery
+
+	console.log(input)
 	const note = new db.category(input);
     // Save Note in the database
     note.save()

@@ -58,10 +58,10 @@ var category = mongoose.Schema({
     short_description: String,
     description: String,
     parent_id: {type: mongoose.Schema.Types.ObjectId, ref: 'category'},
-    featured_img:Array,
-    gallery:Array,
-    mobile_featured_img:Array,
-    mobile_gallery:Array,
+    featured_img:[{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
+    gallery:[{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
+    mobile_featured_img:[{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
+    mobile_gallery:[{type:mongoose.Schema.Types.ObjectId,ref: 'media'}],
     other_fields : Array,
 }, {
     timestamps: true
