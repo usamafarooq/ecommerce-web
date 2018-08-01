@@ -19,6 +19,7 @@ exports.create = function(req, res) {
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	var input = req.body;
 	var firstKey = Object.keys(input)[0];
+	console.log(firstKey)
 	input = JSON.parse(firstKey);
 	console.log(input)
 
@@ -138,3 +139,36 @@ exports.delete = function(req, res) {
         res.json(err);
     });
 };
+
+exports.mobilecategory = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	db.category.find({ parent_id: null }).populate('mobile_featured_img').exec(function (err, result) {
+		res.json(result);
+    })
+}
+
+exports.menucategory = function(req, res) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	db.category.aggregate([
+	   {
+	     $lookup:
+	       {
+	         from: "category",
+	         localField: "_id",
+	         foreignField: "parent_id",
+	         as: "categorys"
+	       }
+	  }
+	], function (err, response) {
+		console.log(response)
+        console.log('Error=' + err); 
+          if (err){
+            res.json(err);
+          }
+          res.json(response);
+    })
+}

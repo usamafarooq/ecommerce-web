@@ -131,6 +131,11 @@ app.get('/deletecategory/:id', category.delete);
 
 app.post('/updatecategory/:id', category.update);
 
+app.get('/mobilecategory', category.mobilecategory);
+
+app.get('/menucategory', category.menucategory);
+
+
 app.get('/tags', tags.tags);
 
 app.post('/createtags', tags.create);
