@@ -909,57 +909,53 @@ app.controller('createcategoryCtrl', function($scope,$http,$location) {
 
 
         // var featured_img = '';
+         var img = '';
         var images = {}
-
-        img = JSON.parse($('input[ng-model="form.featured_img"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
+        img = $('[ng-model="form.featured_img"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.featured_img"]').val())
+            for (var i = 0; i < img.length; i++) {
                 images[i] = img[i].id
             }
+            img = images
+            form.featured_img = img
         }
-        // img = images
-        form.featured_img = images;
 
-
+        var img = '';
         var images = {}
-
-        img = JSON.parse($('input[ng-model="form.gallery"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
+        img = $('[ng-model="form.gallery"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.gallery"]').val())
+            for (var i = 0; i < img.length; i++) {
                 images[i] = img[i].id
             }
+            img = images
+            form.gallery = img
         }
-        form.gallery = images;
 
-
-
-
+        var img = '';
         var images = {}
-
-        img = JSON.parse($('input[ng-model="form.mobile_featured_img"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
+        img = $('[ng-model="form.mobile_featured_img"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.mobile_featured_img"]').val())
+            for (var i = 0; i < img.length; i++) {
                 images[i] = img[i].id
             }
+            img = images
+            form.mobile_featured_img = img
         }
-        form.mobile_featured_img = images;
 
-
-        // var mobile_gallery = '';
+        var img = '';
         var images = {}
-
-        img = JSON.parse($('input[ng-model="form.mobile_gallery"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
+        img = $('[ng-model="form.mobile_gallery"]').val()
+        if (img) {
+            img = JSON.parse($('[ng-model="form.mobile_gallery"]').val())
+            for (var i = 0; i < img.length; i++) {
                 images[i] = img[i].id
             }
+            img = images
+            form.mobile_gallery = img
         }
-
-        form.mobile_gallery = images;
 
 
         form.other_fields = other_fields;
@@ -1124,53 +1120,64 @@ app.controller('editcategoryCtrl', function($scope,$http,$location,$routeParams)
 
 
         var images = {}
-
-        img = JSON.parse($('input[ng-model="form.featured_img"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
-                images[i] = img[i].id
+        img = $('input[ng-model="form.featured_img"]').val()
+        if (img) {
+            img = JSON.parse($('input[ng-model="form.featured_img"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i]
+                if (img[i].id) {
+                    images[i] = img[i].id
+                }
             }
-        }
 
-        featured_img = images
+            featured_img = images
+        }
 
 
         // var gallery = '';
         var images = {}
-        img = JSON.parse($('input[ng-model="form.gallery"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
-                images[i] = img[i].id
+        img = $('input[ng-model="form.gallery"]').val()
+        if (img) {
+            img = JSON.parse($('input[ng-model="form.gallery"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i]
+                if (img[i].id) {
+                    images[i] = img[i].id
+                }
             }
+            gallery = images;
         }
-        gallery = images;
 
 
 
         // var mobile_featured_img = '';
         var images = {}
-        img = JSON.parse($('input[ng-model="form.mobile_featured_img"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
-                images[i] = img[i].id
+        img = $('input[ng-model="form.mobile_featured_img"]').val()
+        if (img) {
+            img = JSON.parse($('input[ng-model="form.mobile_featured_img"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i]
+                if (img[i].id) {
+                    images[i] = img[i].id
+                }
             }
+            mobile_featured_img = images;
         }
-        mobile_featured_img = images;
 
 
         // var mobile_gallery = '';
         var images = {}
-        img = JSON.parse($('input[ng-model="form.mobile_gallery"]').val())
-        for (var i = 0; i < img.length; i++) {
-            images[i] = img[i]
-            if (img[i].id) {
-                images[i] = img[i].id
+        img = $('input[ng-model="form.mobile_gallery"]').val()
+        if (img) {
+            img = JSON.parse($('input[ng-model="form.mobile_gallery"]').val())
+            for (var i = 0; i < img.length; i++) {
+                images[i] = img[i]
+                if (img[i].id) {
+                    images[i] = img[i].id
+                }
             }
+            mobile_gallery = images;
         }
-        mobile_gallery = images;
 
 
 
