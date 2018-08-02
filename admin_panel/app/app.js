@@ -1646,6 +1646,19 @@ app.controller('createproductCtrl', function($scope,$http,$location) {
     }).then(function(data, status, headers, config) {
         $scope.tags = data.data
     });
+
+    $scope.attributes
+    $http({
+        method: 'GET',
+        url: api + "attribute",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(data, status, headers, config) {
+        $scope.attributes = data.data
+    });
+
+
     setTimeout(function() {
         $('input[data-toggle="toggle"]').bootstrapToggle({
             on: 'Yes',
@@ -1654,6 +1667,60 @@ app.controller('createproductCtrl', function($scope,$http,$location) {
         reload_js('assets/plugins/bootstrap-wizard/jquery.backstretch.min.js');
         reload_js('assets/plugins/bootstrap-wizard/form.scripts.js');
     })
+
+    $scope.choices = [{id: 'choice1'}];
+
+    $scope.addNewChoice = function() {
+      var newItemNo = $scope.choices.length+1;
+      $scope.choices.push({'id' : 'choice' + newItemNo, 'name' : 'choice' + newItemNo});
+    };
+
+    $scope.removeNewChoice = function(index) {
+      var newItemNo = $scope.choices.length-1;
+      if ( newItemNo !== 0 ) {
+        // $scope.choices.pop();
+        $scope.choices.splice(index, 1);
+      }
+    };
+
+    $scope.showAddChoice = function(choice) {
+      return choice.id === $scope.choices[$scope.choices.length-1].id;
+    };
+
+
+    $scope.addattribute = function(){
+      id = $('#attribute').val();
+
+      $http({
+          method: 'GET',
+          url: api + "configureattribute/"+id,
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+          }
+      }).then(function(data, status, headers, config) {
+          record = data.data
+          row = '';
+          for (var i = 0; i < record.length; i++) {
+            row += '<option value="'+record[i]._id+'">'+record[i].name+'</option>'
+          }
+
+          var template = '<div class="col-sm-offset-3 col-sm-8">'+
+            '<label for="example-text-input" class="col-form-label">Name</label>'+
+            '<select class="form-control" id="attribute" ng-model="form.tags" multiple>'+
+            row
+            '</select>'+
+          '</div>';
+
+
+          $('#attribute').closest('.form-group').append(template)
+
+
+
+      });
+
+
+    }
+
     $scope.submitForm = function() {
         var form = $scope.form
         var img = '';
