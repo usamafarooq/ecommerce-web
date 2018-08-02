@@ -148,27 +148,42 @@ exports.mobilecategory = function(req, res) {
 		res.json(result);
     })
 }
-
+var menucat = []
 exports.menucategory = function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 	res.setHeader('Access-Control-Allow-Credentials', true);
-	db.category.aggregate([
-	   {
-	     $lookup:
-	       {
-	         from: "category",
-	         localField: "_id",
-	         foreignField: "parent_id",
-	         as: "categorys"
-	       }
-	  }
-	], function (err, response) {
-		console.log(response)
-        console.log('Error=' + err); 
-          if (err){
-            res.json(err);
-          }
-          res.json(response);
-    })
+	db.category.find({ parent_id: null })
+    .then(category => {
+    	menucat = category
+    	for (var i = 0; i < Object.keys(category).length; i++) {
+    		get_child(i,category[i]._id,res)
+    		// var e = i
+    		// category[i].other_fields = []
+    		// db.category.find({ parent_id: category[i]._id })
+		    // .then(cat => {
+		    // 	console.log(category[e])
+		    // 	category[e].other_fields = cat
+		    // 	if ((i+1) == Object.keys(category).length) {
+		    // 		//console.log(category)
+		    // 	}
+		    // });
+    	}
+    	//console.log(category)
+    	// res.json(user);
+    }).catch(err => {
+    	//console.log(err)
+        //res.json(err);
+    });
+}
+
+function get_child(key,parent_id,res) {
+	db.category.find({ parent_id: parent_id })
+	.then(cat => {
+		menucat[key].other_fields = cat
+		if ((key + 1) == Object.keys(menucat).length) {
+			res.json(menucat);
+			console.log(menucat)
+		}
+	})
 }
