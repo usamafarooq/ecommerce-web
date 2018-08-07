@@ -156,7 +156,7 @@
 
 
 
-                            <div class="form-group row">
+                            <div class="form-group row attribute">
 
                                 <label for="example-text-input" class="col-sm-3 col-form-label">Attribute<span class="required"></span></label>
 
@@ -171,8 +171,26 @@
 
                                 <button type="button" class="col-sm-1 btn btn-primary" ng-click="addattribute()">Add</button>
 
+                                <div ng-repeat="att in attributesDropdown">
+
+                                  <div class="col-sm-offset-3 col-sm-8">
+                                    <label for="example-text-input" class="col-form-label">{{att.label}}</label>
+                                    <select class="form-control" id="attribute" name="{{att.label}}" multiple>
+                                      <option ng-repeat="r in att.row" value="{{r._id}}">{{r.name}}</option>
+                                    </select>
+                                  </div>
+                                  <button type="button" class="col-sm-1 btn btn-danger removeAttribute">Remove</button>
+                                </div>
 
                             </div>
+
+                            <div class="form-group">
+                              <label for="example-text-input" class="col-sm-3 col-form-label">Variation</label>
+                              <button type="button" name="button" class="btn btn-primary" ng-click="createVariation()">Create</button>
+
+                            </div>
+
+
 
 
                             <!-- <div class="form-group row">
