@@ -1718,18 +1718,65 @@ app.controller('createproductCtrl', function($scope,$http,$location) {
             variationAttribute.push(  $('select[name='+attributes[i].label+'] option:selected') );  
         }
 
-        row = '';
-        for (var i = 0; i < variationAttribute.length; i++) {
-            // row = i+ ' = ' + $(variationAttribute[i]).text();
-            for (var ind = 0; i < variationAttribute[i].length; ind++) {
-                row += i+ ' = ' + ind
-            }
+        // console.log(variationAttribute);
 
+        rows = [];
+        $.each( variationAttribute, function( idx, items ) {
+            var attrVal = $scope.getAttributesValue( items );
+
+            if( attrVal ) {
+                rows[idx] = attrVal;
+            }
+            // if( item.length ) {
+            //     $.each( item, ( _idx, item2 ) => {
+            //         console.log( idx + ':' + _idx );
+            //     });
+            // }
+        });
+        
+        var probabilities = [];
+        
+        if( rows.length ) {   
+            // for( var i = 0; i < rows[0].length; i++ ) {
+                var _temp = '';
+                $.each( rows[0],function( idx, attributes ) {
+                    var itemNo = 0;
+                    for( var i = 1; i < rows.length; i++ ) {
+                        for( var f = i + 1; f <= i; f++ ) {
+                            console.log( attributes, rows[i][itemNo], rows[f][itemNo] );
+                            // rows[f];
+                        }
+                    }
+                    itemNo++;
+                });
+            // }
         }
-        console.log(row);
+        // for (var i = 0; i < variationAttribute.length; i++) {
+        //     // row = i+ ' = ' + $(variationAttribute[i]).text();
+        //     for (var ind = 0; ind < variationAttribute[i].length; ind++) {
+        //         let item = i + '<->' + ind;
+        //         row.push({ item });  
+        //     }
+
+        // }
+        // console.log(row);
       
 
     }
+
+    $scope.getAttributesValue = function( collection ) {
+        if( collection.length ) {
+            var _data = [];
+
+            $.each( collection, function( idx, el ) {
+                _data.push( el.text );
+            });
+
+            return _data;
+        }
+
+        return false;
+    };
 
 
     $scope.submitForm = function() {
