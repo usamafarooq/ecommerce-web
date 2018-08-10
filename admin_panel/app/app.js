@@ -1709,6 +1709,56 @@ app.controller('createproductCtrl', function($scope,$http,$location) {
       });
       // $('#attribute').closest('.form-group').append(template)
     }
+    function create_varible(arr_attr, key) {
+        for (var a = key; a <= key; a++) {
+            $('[name="'+attributes[a].label+'"] option:selected').each(function() {
+                var attr_single = []
+                attr_single = arr_attr
+                var total = []
+                for (var i = 0; i < attr_single.length; i++) {
+                    if (attr_single[i]) {
+                        total[i] = attr_single[i]
+                    }
+                }
+                total[total.length + 1] = {  'id' : $(this).attr('value'), 'label' : $(this).text()}
+                if (attributes[a + 1]) {
+                    create_varible(total, a + 1)
+                }
+                else{
+                    variationdata.push({'variation' :total})
+                }
+            })
+            
+        }
+    }
+    var variationdata = []
+    $scope.variationsimple = function() {
+        attributes = $scope.attributesDropdown;
+        variationdata = []
+        $('[name="'+attributes[0].label+'"] option:selected').each(function() {
+            var id = $(this).attr('value')
+            var label = $(this).text()
+            if (attributes[1]) {
+                for (var i = 1; i <= 1; i++) {
+                    $('[name="'+attributes[i].label+'"] option:selected').each(function() {
+                        if (attributes[i + 1]) {
+                            var single = []
+                            single.push({ 'id' : id, 'label' : label})
+                            single.push({  'id' : $(this).attr('value'), 'label' : $(this).text()})
+                            create_varible(single,i + 1)
+                        }
+                        else{
+                            variationdata.push({'variation' : [{ 'id' : id, 'label' : label},{  'id' : $(this).attr('value'), 'label' : $(this).text()}]})
+                        }
+                    })
+                }
+            }
+            else{
+                variationdata.push({'variation' : [{ 'id' : id, 'label' : label}]})
+            }    
+        })
+        console.log(variationdata)
+    }
 
 
     $scope.createVariation = function() {
