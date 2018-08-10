@@ -1712,7 +1712,21 @@ app.controller('createproductCtrl', function($scope,$http,$location) {
 
 
     $scope.createVariation = function() {
-      $scope.attributesDropdown
+        attributes = $scope.attributesDropdown;
+        var variationAttribute = [];
+        for (var i = 0; i < attributes.length; i++) {
+            variationAttribute.push(  $('select[name='+attributes[i].label+'] option:selected') );  
+        }
+
+        row = '';
+        for (var i = 0; i < variationAttribute.length; i++) {
+            // row = i+ ' = ' + $(variationAttribute[i]).text();
+            for (var ind = 0; i < variationAttribute[i].length; ind++) {
+                row += i+ ' = ' + ind
+            }
+
+        }
+        console.log(row);
       
 
     }
